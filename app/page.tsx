@@ -1,60 +1,36 @@
 "use client";
 
-import { Button, Card, CardHeader, CardBody, CardFooter } from "@heroui/react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import Image from "next/image";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
 
-export default function page() {
+export default function Page() {
   const router = useRouter();
 
-  //* create Supabase client
-  const supabase = createClientComponentClient();
+  useEffect(() => {
+    const checkAuth = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-  //* handle sign in with Google
-  const handleSignInWithGoogle = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${location.origin}/auth/callback`,
-      },
-    });
+      if (session) {
+        // User is signed in, redirect to dashboard
+        router.replace("/dashboard");
+      } else {
+        // User is not signed in, redirect to sign-in
+        router.replace("/sign-in");
+      }
+    };
 
-    if (error) {
-      console.log("Error logging in:", error.message);
-    }
-  };
+    checkAuth();
+  }, [router]);
 
+  // Show loading state while checking auth
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <Card>
-        <CardHeader className="flex flex-col items-center justify-center">
-          <Image
-            src="/icon.png"
-            alt="Drinking Tracker App"
-            width={200}
-            height={200}
-            className="mb-4 mx-auto"
-          />
-        </CardHeader>
-        <CardBody>
-          <h1>Drinking Tracker App</h1>
-          <h2 className="text-lg text-center">ติดตามการดื่มน้ำ</h2>
-          <Button
-            disableRipple
-            onPress={handleSignInWithGoogle}
-            className="btn"
-          >
-            <span>
-              ดำเนินการต่อด้วย &ensp;
-              <i
-                className="fa-brands fa-google ml-2"
-                style={{ fontSize: "1.2rem" }}
-              ></i>
-            </span>
-          </Button>
-        </CardBody>
-      </Card>
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="text-center">
+        <p>Loading...</p>
+      </div>
     </div>
   );
 }
