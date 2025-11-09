@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
-import Providers from "./providers";
+import Providers from "@/lib/providers";
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ["latin", "thai"],
