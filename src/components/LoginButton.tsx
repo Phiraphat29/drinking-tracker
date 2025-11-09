@@ -22,7 +22,7 @@ export default function LoginButton() {
       color="primary"
       variant="shadow"
       size="md"
-      className="w-full h-10 bg-linear-to-r from-blue-600 to-cyan-600 text-white"
+      className="w-100 h-10 px-6 bg-linear-to-r from-blue-600 to-cyan-600 text-white"
     >
       ดำเนินการต่อด้วย
       <i className="fa-brands fa-google ml-2"></i>

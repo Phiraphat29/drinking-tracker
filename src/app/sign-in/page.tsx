@@ -7,35 +7,7 @@ import Image from "next/image";
 export default function SignInPage() {
   return (
     <div className="relative flex flex-col min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-blue-50 via-cyan-50 to-teal-50 dark:from-gray-900 dark:via-blue-900 dark:to-cyan-900">
-      {/* Animated background decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating water droplets */}
-        <div className="absolute top-20 left-[10%] w-32 h-32 bg-blue-400/20 dark:bg-blue-400/10 rounded-full blur-3xl animate-float-slow"></div>
-        <div className="absolute top-40 right-[15%] w-40 h-40 bg-cyan-400/20 dark:bg-cyan-400/10 rounded-full blur-3xl animate-float-medium"></div>
-        <div className="absolute bottom-32 left-[20%] w-36 h-36 bg-teal-400/20 dark:bg-teal-400/10 rounded-full blur-3xl animate-float-fast"></div>
-        <div className="absolute bottom-20 right-[25%] w-44 h-44 bg-blue-300/20 dark:bg-blue-300/10 rounded-full blur-3xl animate-float-slow"></div>
-
-        {/* Water droplet icons */}
-        <div className="absolute top-[15%] left-[15%] text-6xl opacity-10 dark:opacity-5 animate-float-slow">
-          💧
-        </div>
-        <div className="absolute top-[25%] right-[20%] text-5xl opacity-10 dark:opacity-5 animate-float-medium">
-          💧
-        </div>
-        <div className="absolute bottom-[30%] left-[25%] text-7xl opacity-10 dark:opacity-5 animate-float-fast">
-          💧
-        </div>
-        <div className="absolute bottom-[15%] right-[15%] text-6xl opacity-10 dark:opacity-5 animate-float-slow">
-          💧
-        </div>
-        <div className="absolute top-[50%] left-[5%] text-4xl opacity-10 dark:opacity-5 animate-float-medium">
-          💧
-        </div>
-        <div className="absolute top-[60%] right-[10%] text-5xl opacity-10 dark:opacity-5 animate-float-fast">
-          💧
-        </div>
-      </div>
-
+      
       {/* Main content */}
       <div className="relative z-10 w-full max-w-md px-4">
         {/* Welcome text above card */}
