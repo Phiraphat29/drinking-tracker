@@ -6,12 +6,12 @@ import Image from "next/image";
 
 export default function SignInPage() {
   return (
-    <div className="relative flex flex-col min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-blue-50 via-cyan-50 to-teal-50 dark:from-gray-900 dark:via-blue-900 dark:to-cyan-900">
+    <div className="relative flex flex-col min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-blue-50 via-cyan-50 to-teal-50">
       {/* Main content */}
-      <div className="relative z-10 w-full max-w-md px-4">
+      <div className="relative z-10 w-full max-w-md">
         {/* Glassmorphism Card */}
-        <Card className="backdrop-blur-xl bg-white/80 shadow-2xl border border-white/20 rounded-4xl animate-slide-up">
-          <CardHeader className="flex flex-col gap-4 justify-center pt-8 pb-4">
+        <Card className="isBlurred backdrop-blur-xl bg-white/80 shadow-2xl border border-white/20 rounded-4xl animate-slide-up">
+          <CardHeader className="flex flex-col gap-4 justify-center">
             {/* Welcome text above card */}
             <div className="text-center mb-8 animate-fade-in">
               <h1 className="text-4xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent mb-2">
@@ -23,9 +23,9 @@ export default function SignInPage() {
             </div>
             {/* Logo with glow effect */}
             <div className="relative">
-              <div className="absolute inset-0 bg-blue-400/30 dark:bg-blue-400/20 rounded-full blur-2xl animate-pulse-slow"></div>
+              <div className="absolute inset-0 bg-blue-400/30 rounded-full blur-2xl animate-pulse-slow"></div>
               <Image
-                src="/icon.png"
+                src="/logo.png"
                 alt="Water Logo"
                 width={120}
                 height={120}
@@ -35,29 +35,20 @@ export default function SignInPage() {
             </div>
 
             {/* Title */}
-            <div className="space-y-1">
+            <div>
               <h2 className="text-3xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                 เข้าสู่ระบบ
               </h2>
             </div>
           </CardHeader>
 
-          <CardBody className="px-8 py-4 flex flex-col items-center justify-center gap-2 min-h-20">
+          <CardBody className="pt-4 flex flex-col items-center justify-center gap-2 min-h-20">
             <LoginButton />
-
-            {/* Decorative divider */}
             <div className="mt-6 flex items-center gap-3">
-              <span className="text-xs text-gray-400 dark:text-gray-500">
-                ปลอดภัย & รวดเร็ว
-              </span>
+              <span className="text-xs text-gray-400 ">ปลอดภัย & รวดเร็ว</span>
             </div>
           </CardBody>
         </Card>
-
-        {/* Footer text */}
-        <p className="text-center mb-6 text-sm text-gray-500 dark:text-gray-400 animate-fade-in-delay">
-          เข้าสู่ระบบเพื่อเริ่มติดตามการดื่มน้ำประจำวันของคุณ 💧
-        </p>
       </div>
     </div>
   );

@@ -10,6 +10,13 @@ import {
   ModalFooter,
   Button,
   Input,
+  Table,
+  TableHeader,
+  TableBody,
+  TableColumn,
+  TableRow,
+  TableCell,
+  addToast,
 } from "@heroui/react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
@@ -17,6 +24,7 @@ import { useRouter } from "next/navigation";
 export default function DashboardClient({
   user,
   profile,
+  logs,
 }: DashboardClientProps) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +32,15 @@ export default function DashboardClient({
   const [dailyGoal, setDailyGoal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  //* Show toast after sign-in success
+  useEffect(() => {
+    const displayName = profile?.username || user.email;
+    addToast({
+      title: `คุณกำลังเข้าสู่ระบบในฐานะ ${displayName}`,
+      color: "success",
+    });
+  }, [profile, user]);
 
   //* Show modal if daily goal or username is null
   useEffect(() => {
@@ -84,13 +101,13 @@ export default function DashboardClient({
       >
         <ModalContent>
           <form onSubmit={handleSubmit}>
-            <ModalHeader>Set your username and daily goal</ModalHeader>
+            <ModalHeader>ป้อนชื่อผู้ใช้และเป้าหมายการดื่มน้ำของคุณ</ModalHeader>
             <ModalBody>
               <div className="flex flex-col gap-4">
                 <Input
                   type="text"
-                  label="Username"
-                  placeholder="Enter your username"
+                  label="ชื่อผู้ใช้"
+                  placeholder="ป้อนชื่อผู้ใช้"
                   variant="bordered"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -99,8 +116,8 @@ export default function DashboardClient({
                 />
                 <Input
                   type="number"
-                  label="Daily Goal (ml)"
-                  placeholder="Enter your daily goal in ml"
+                  label="การดื่มน้ำ (ml)"
+                  placeholder="ป้อนเป้าหมายการดื่มน้ำใน (ml)"
                   variant="bordered"
                   value={dailyGoal}
                   onChange={(e) => setDailyGoal(e.target.value)}
@@ -127,6 +144,28 @@ export default function DashboardClient({
 
       <div className="flex flex-col gap-2 min-h-screen">
         <h1 className="text-2xl font-bold text-center py-2 px-4">Dashboard</h1>
+        {/* show drinking log by table (if no data show message) */}
+        {logs.length === 0 ? (
+          <p className="text-center text-gray-500">No logs found</p>
+        ) : (
+          <Table
+            aria-label="Drinking log table"
+            className="flex flex-col gap-2"
+          >
+            <TableHeader>
+              <TableColumn>วันที่ดื่ม</TableColumn>
+              <TableColumn>ปริมาณน้ำ (ml)</TableColumn>
+            </TableHeader>
+            <TableBody>
+              {logs.map((log) => (
+                <TableRow key={log?.id}>
+                  <TableCell>{log?.created_at}</TableCell>
+                  <TableCell>{log?.amount_ml}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </div>
     </div>
   );
