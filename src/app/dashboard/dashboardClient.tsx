@@ -12,6 +12,7 @@ import {
   addToast,
 } from "@heroui/react";
 import GoalModal from "@/components/modal/GoalModal";
+import NavBar from "@/components/NavBar";
 
 export default function DashboardClient({
   user,
@@ -37,7 +38,8 @@ export default function DashboardClient({
   }, [profile]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto">
+      <NavBar />
       <GoalModal
         isOpen={isModalOpen}
         onOpenChange={setIsModalOpen}
