@@ -38,7 +38,7 @@ export default function DashboardClient({
   }, [profile]);
 
   return (
-    <div className="mx-auto">
+    <>
       <NavBar />
       <GoalModal
         isOpen={isModalOpen}
@@ -46,7 +46,7 @@ export default function DashboardClient({
         userId={user.id}
       />
 
-      <div className="flex flex-col gap-2 min-h-screen">
+      <div className="flex flex-col gap-2 min-h-screen mx-auto max-w-7xl px-4">
         <h1 className="text-2xl font-bold text-center py-2 px-4">Dashboard</h1>
         {/* show drinking log by table (if no data show message) */}
         {logs.length === 0 ? (
@@ -71,6 +71,6 @@ export default function DashboardClient({
           </Table>
         )}
       </div>
-    </div>
+    </>
   );
 }

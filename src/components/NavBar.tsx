@@ -1,23 +1,31 @@
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, Avatar, 
-     DropdownItem,DropdownTrigger,Dropdown,DropdownMenu,} from "@heroui/react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Avatar,
+} from "@heroui/react";
 export default function NavBar() {
   return (
-    <Navbar>
-      <NavbarBrand >
-        <img src="/icon.png" alt="Logo" className="h-10" />
-        <p className="font-bold text-inherit">DrinkingTrack</p>
-      </NavbarBrand>
-      <NavbarContent className="grow" />
+    <Navbar maxWidth="full">
+      <NavbarContent justify="start">
+        <NavbarBrand>
+          <img src="/icon.png" alt="Logo" className="h-10" />
+          <p className="font-bold text-inherit">DrinkingTrack</p>
+        </NavbarBrand>
+      </NavbarContent>
       <NavbarContent justify="end">
-        <Avatar
-          isBordered
-          as="button"
-          className="transition-transform "
-          color="secondary"
-          name="Jason Hughes"
-          size="md"
-          src="gogeta1.jpg"
-        />
+        <NavbarItem>
+          <Avatar
+            isBordered
+            as="button"
+            className="transition-transform"
+            color="secondary"
+            name="Jason Hughes"
+            size="md"
+            src="gogeta1.jpg"
+          />
+        </NavbarItem>
       </NavbarContent>
     </Navbar>
   );
