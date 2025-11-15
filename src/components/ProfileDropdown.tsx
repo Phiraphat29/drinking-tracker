@@ -12,7 +12,7 @@ import { Profile } from "@/types/database";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import GoalModal from "@/components/modal/GoalModal";
+import GoalModal from "@/components/modal/SettingModal";
 
 type ProfileDropdownProps = {
   user: User;

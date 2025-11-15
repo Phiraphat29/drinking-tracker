@@ -5,6 +5,6 @@
 
 /* background color */
 body {
-  @apply bg-linear-to-br from-blue-100 via-cyan-100 to-teal-100 text-gray-900 ;
+  @apply bg-linear-to-br from-blue-300 via-cyan-100 to-teal-300 text-gray-900 ;
 }
 

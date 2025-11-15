@@ -14,7 +14,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { Profile } from "@/types/database";
 
-interface GoalModalProps {
+interface SettingModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   userId: string;
@@ -22,13 +22,13 @@ interface GoalModalProps {
   mode?: "onboarding" | "full";
 }
 
-export default function GoalModal({
+export default function SettingModal({
   isOpen,
   onOpenChange,
   userId,
   profile,
   mode = "onboarding",
-}: GoalModalProps) {
+}: SettingModalProps) {
   const router = useRouter();
   const [username, setUsername] = useState(profile?.username || "");
   const [dailyGoal, setDailyGoal] = useState<number>(
@@ -115,6 +115,7 @@ export default function GoalModal({
       placement="top-center"
       hideCloseButton
       isDismissable={false}
+      backdrop="blur"
     >
       <ModalContent>
         <form onSubmit={handleSubmit}>
