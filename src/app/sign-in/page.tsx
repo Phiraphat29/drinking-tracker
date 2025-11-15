@@ -7,7 +7,7 @@ import "@/styles/wave.css";
 
 export default function SignInPage() {
   return (
-    <div className="relative flex flex-col min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-blue-50 via-cyan-50 to-teal-50">
+    <div className="relative flex flex-col min-h-screen items-center justify-center overflow-hidden">
       {/* Waves background */}
       <div className="sign-in-waves" aria-hidden="true">
         <div className="wave wave--1"></div>

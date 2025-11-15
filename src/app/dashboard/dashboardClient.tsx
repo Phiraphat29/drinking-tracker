@@ -2,17 +2,11 @@
 
 import { DashboardClientProps } from "@/types/database";
 import { useState, useEffect } from "react";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableColumn,
-  TableRow,
-  TableCell,
-  addToast,
-} from "@heroui/react";
-import GoalModal from "@/components/modal/GoalModal";
+import { addToast, Button } from "@heroui/react";
+import SettingModal from "@/components/modal/SettingModal";
 import NavBar from "@/components/NavBar";
+import AddLogModal from "@/components/modal/AddLogModal";
+import LogTable from "@/components/LogTable";
 
 export default function DashboardClient({
   user,
@@ -20,6 +14,7 @@ export default function DashboardClient({
   logs,
 }: DashboardClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddLogModalOpen, setIsAddLogModalOpen] = useState(false);
 
   //* Show toast after sign-in success
   useEffect(() => {
@@ -28,7 +23,7 @@ export default function DashboardClient({
       title: `คุณกำลังเข้าสู่ระบบในฐานะ ${displayName}`,
       color: "success",
     });
-  }, [profile, user]);
+  }, []);
 
   //* Show modal if daily goal or username is null
   useEffect(() => {
@@ -43,7 +38,6 @@ export default function DashboardClient({
       const lastLog = logs[0];
       if (!lastLog) return;
 
-      // calculate the time
       const lastLogTime = new Date(lastLog.created_at).getTime();
       const now = Date.now();
       const twoHour = 2 * 60 * 60 * 1000;
@@ -54,7 +48,7 @@ export default function DashboardClient({
           icon: "/icon.png",
         });
       }
-    }, 30 * 60 * 1000); // 30 minutes
+    }, 30 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, [logs]);
@@ -62,38 +56,31 @@ export default function DashboardClient({
   return (
     <>
       <NavBar user={user} profile={profile} />
-      <GoalModal
+      <SettingModal
         isOpen={isModalOpen}
         onOpenChange={setIsModalOpen}
         userId={user.id}
         profile={profile}
         mode="onboarding"
       />
+      <AddLogModal
+        isOpen={isAddLogModalOpen}
+        onOpenChange={setIsAddLogModalOpen}
+        userId={user.id}
+      />
+      <Button
+        aria-label="Add log"
+        color="primary"
+        variant="shadow"
+        isIconOnly
+        className="fixed bottom-6 right-6 z-50 h-15 w-15 rounded-full flex items-center justify-center text-2xl"
+        onPress={() => setIsAddLogModalOpen(true)}
+      >
+        +
+      </Button>
 
-      <div className="flex flex-col gap-2 h-full mx-auto max-w-7xl px-4">
-        <h1 className="text-2xl font-bold text-center py-2 px-4">Dashboard</h1>
-        {/* show drinking log by table (if no data show message) */}
-        {logs.length === 0 ? (
-          <p className="text-center text-gray-500">No logs found</p>
-        ) : (
-          <Table
-            aria-label="Drinking log table"
-            className="flex flex-col gap-2"
-          >
-            <TableHeader>
-              <TableColumn>วันที่ดื่ม</TableColumn>
-              <TableColumn>ปริมาณน้ำ (ml)</TableColumn>
-            </TableHeader>
-            <TableBody>
-              {logs.map((log) => (
-                <TableRow key={log?.id}>
-                  <TableCell>{log?.created_at}</TableCell>
-                  <TableCell>{log?.amount_ml}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
+      <div className="flex flex-col gap-2 h-full mx-auto max-w-7xl px-4 py-8">
+        <LogTable logs={logs} />
       </div>
     </>
   );

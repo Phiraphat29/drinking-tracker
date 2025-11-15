@@ -17,6 +17,11 @@ export default function NavBar({ user, profile }: NavBarProps) {
           <p className="font-bold text-inherit">Drinking Tracker</p>
         </NavbarBrand>
       </NavbarContent>
+      <NavbarContent justify="center">
+        <NavbarItem>
+          <p className="text-3xl font-semibold max-sm:hidden">Overview</p>
+        </NavbarItem>
+      </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
           <ProfileDropdown user={user} profile={profile} />
