@@ -35,11 +35,6 @@ export default function AddLogModal({
 
   //* handle Upload log
   const handleUploadLog = async () => {
-    const { data, error } = await supabase.from("drinking_log").insert({
-      user_id: userId,
-      drink_name: drinkName,
-      amount_ml: amountMl,
-    });
     if (!drinkName.trim() || !amountMl.trim() || parseInt(amountMl) <= 0) {
       addToast({
         title: "กรุณาป้อนข้อมูลให้ครบถ้วน",
@@ -48,6 +43,13 @@ export default function AddLogModal({
       });
       return;
     }
+
+    const { data, error } = await supabase.from("drinking_log").insert({
+      user_id: userId,
+      drink_name: drinkName,
+      amount_ml: amountMl,
+    });
+
     if (error) {
       console.error(error);
       addToast({
