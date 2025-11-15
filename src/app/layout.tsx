@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
-import "./globals.css";
+import "@/styles/globals.css";
 import Providers from "@/lib/providers";
 
 const notoSansThai = Noto_Sans_Thai({
@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <head>
         {/* Font Awesome */}
         <script
@@ -30,7 +30,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={`${notoSansThai.className} antialiased`}>
+      <body
+        className={`${notoSansThai.className} antialiased select-none h-full`}
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

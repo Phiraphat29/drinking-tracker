@@ -37,16 +37,40 @@ export default function DashboardClient({
     }
   }, [profile]);
 
+  //* Show notification if user doesn't add drinking log in 2 hours by using interval
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const lastLog = logs[0];
+      if (!lastLog) return;
+
+      // calculate the time
+      const lastLogTime = new Date(lastLog.created_at).getTime();
+      const now = Date.now();
+      const twoHour = 2 * 60 * 60 * 1000;
+
+      if (now - lastLogTime > twoHour) {
+        new Notification("คุณยังไม่ได้ดื่มน้ำใน 2 ชั่วโมงแล้ว!", {
+          body: "จิบน้ำสักหน่อยนะ!",
+          icon: "/icon.png",
+        });
+      }
+    }, 30 * 60 * 1000); // 30 minutes
+
+    return () => clearInterval(interval);
+  }, [logs]);
+
   return (
     <>
-      <NavBar />
+      <NavBar user={user} profile={profile} />
       <GoalModal
         isOpen={isModalOpen}
         onOpenChange={setIsModalOpen}
         userId={user.id}
+        profile={profile}
+        mode="onboarding"
       />
 
-      <div className="flex flex-col gap-2 min-h-screen mx-auto max-w-7xl px-4">
+      <div className="flex flex-col gap-2 h-full mx-auto max-w-7xl px-4">
         <h1 className="text-2xl font-bold text-center py-2 px-4">Dashboard</h1>
         {/* show drinking log by table (if no data show message) */}
         {logs.length === 0 ? (

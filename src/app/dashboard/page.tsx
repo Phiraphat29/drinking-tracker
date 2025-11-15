@@ -18,7 +18,7 @@ export default async function DashboardPage() {
   //* Retrieve user's profile data (username and daily goal in ml)
   const { data: profile } = await supabase
     .from("profiles")
-    .select("username, daily_goal_ml")
+    .select("username, daily_goal_ml, avatar_url")
     .eq("id", session.user.id)
     .single();
 
