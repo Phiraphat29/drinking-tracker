@@ -1,7 +1,7 @@
 "use client";
 
 import { Log, Profile } from "@/types/database";
-import { now, getLocalTimeZone } from "@internationalized/date";
+import { now, getLocalTimeZone, ZonedDateTime } from "@internationalized/date";
 import { useState } from "react";
 import {
   Modal,
@@ -32,6 +32,7 @@ export default function AddLogModal({
   const [drinkName, setDrinkName] = useState("");
   const [amountMl, setAmountMl] = useState("");
   const router = useRouter();
+  const [date, setDate] = useState<ZonedDateTime>(now(getLocalTimeZone()));
 
   //* handle Upload log
   const handleUploadLog = async () => {
@@ -44,10 +45,11 @@ export default function AddLogModal({
       return;
     }
 
-    const { data, error } = await supabase.from("drinking_log").insert({
+    const { error } = await supabase.from("drinking_log").insert({
       user_id: userId,
       drink_name: drinkName,
       amount_ml: amountMl,
+      created_at: date.toDate().toISOString(),
     });
 
     if (error) {
@@ -59,6 +61,9 @@ export default function AddLogModal({
       });
     } else {
       onOpenChange(false);
+      setDate(now(getLocalTimeZone()));
+      setDrinkName("");
+      setAmountMl("");
       router.refresh();
       addToast({
         title: "บันทึกข้อมูลสำเร็จ",
@@ -87,7 +92,8 @@ export default function AddLogModal({
               defaultValue={now(getLocalTimeZone())}
               maxValue={now(getLocalTimeZone())}
               variant="bordered"
-              onChange={(date) => console.log(date)}
+              onChange={(date) => setDate(date as ZonedDateTime)}
+              value={date}
             />
           </I18nProvider>
           <Input
