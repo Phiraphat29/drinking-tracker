@@ -40,11 +40,19 @@ export default function AddLogModal({
       drink_name: drinkName,
       amount_ml: amountMl,
     });
+    if (!drinkName.trim() || !amountMl.trim() || parseInt(amountMl) <= 0) {
+      addToast({
+        title: "กรุณาป้อนข้อมูลให้ครบถ้วน",
+        description: "กรุณาป้อนชื่อเครื่องดื่มและปริมาณเครื่องดื่ม",
+        color: "danger",
+      });
+      return;
+    }
     if (error) {
       console.error(error);
       addToast({
         title: "บันทึกข้อมูลไม่สำเร็จ",
-        description: "กรุณาป้อนข้อมูลให้ครบถ้วน",
+        description: "กรุณาตรวจสอบข้อมูลอีกครั้ง",
         color: "danger",
       });
     } else {
