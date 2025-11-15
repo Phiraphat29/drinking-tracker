@@ -1,30 +1,25 @@
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Avatar,
-} from "@heroui/react";
-export default function NavBar() {
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
+import ProfileDropdown from "@/components/ProfileDropdown";
+import { User } from "@supabase/supabase-js";
+import { Profile } from "@/types/database";
+
+type NavBarProps = {
+  user: User;
+  profile: Profile | null;
+};
+
+export default function NavBar({ user, profile }: NavBarProps) {
   return (
     <Navbar maxWidth="full">
       <NavbarContent justify="start">
         <NavbarBrand>
           <img src="/icon.png" alt="Logo" className="h-10" />
-          <p className="font-bold text-inherit">DrinkingTrack</p>
+          <p className="font-bold text-inherit">Drinking Tracker</p>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Avatar
-            isBordered
-            as="button"
-            className="transition-transform"
-            color="secondary"
-            name="Jason Hughes"
-            size="md"
-            src="gogeta1.jpg"
-          />
+          <ProfileDropdown user={user} profile={profile} />
         </NavbarItem>
       </NavbarContent>
     </Navbar>

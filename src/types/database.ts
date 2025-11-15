@@ -1,10 +1,10 @@
 import { User } from "@supabase/supabase-js";
 
 export type Profile = {
-    username: string | null;
-    daily_goal_ml: number | null;
-    avatar_url: string | null;
-} | null;
+    username: string;
+    daily_goal_ml: number;
+    avatar_url: string;
+} ;
 
 export type Log = {
     id: number;
