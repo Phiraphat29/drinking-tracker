@@ -1,6 +1,5 @@
 "use client";
 
-
 import { now, getLocalTimeZone, ZonedDateTime } from "@internationalized/date";
 import { useState } from "react";
 import {
@@ -17,61 +16,57 @@ import {
 import { I18nProvider } from "@react-aria/i18n";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import { Log } from "@/types/database";
 
-interface AddLogModalProps {
+interface UpdateLogModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  userId: string;
+  log: Log;
 }
 
-export default function AddLogModal({
+
+export default function UpdateLogModal({
   isOpen,
   onOpenChange,
-  userId,
-}: AddLogModalProps) {
-  const [drinkName, setDrinkName] = useState("");
-  const [amountMl, setAmountMl] = useState("");
+  log,
+}: UpdateLogModalProps) {
   const router = useRouter();
+  const [drinkName, setDrinkName] = useState(log.drink_name);
+  const [amountMl, setAmountMl] = useState(log.amount_ml.toString());
   const [date, setDate] = useState<ZonedDateTime>(now(getLocalTimeZone()));
 
-  //* handle Upload log
-  const handleUploadLog = async () => {
+
+  const handleUpdateLog = async () => {
     if (!drinkName.trim() || !amountMl.trim() || parseInt(amountMl) <= 0) {
       addToast({
-        title: "กรุณาป้อนข้อมูลให้ครบถ้วน",
-        description: "กรุณาป้อนชื่อเครื่องดื่มและปริมาณเครื่องดื่ม",
+        title: "ป้อนข้อมูลให้ครบถ้วน",
+        description: "ป้อนชื่อเครื่องดื่มและเครื่องดื่ม",
         color: "danger",
       });
       return;
     }
-
-    const { error } = await supabase.from("drinking_log").insert({
-      user_id: userId,
+    const { error } = await supabase.from("drinking_log").update({
       drink_name: drinkName,
       amount_ml: amountMl,
       created_at: date.toDate().toISOString(),
-    });
-
+    }).eq("id", log.id);
     if (error) {
-      console.error(error);
       addToast({
-        title: "บันทึกข้อมูลไม่สำเร็จ",
-        description: "กรุณาตรวจสอบข้อมูลอีกครั้ง",
+        title: "เปลี่ยนแปลงข้อมูลไม่สำเร็จ",
+        description: "ตรวจสอบข้อมูลอีกครั้ง",
         color: "danger",
       });
     } else {
       onOpenChange(false);
-      setDate(now(getLocalTimeZone()));
-      setDrinkName("");
-      setAmountMl("");
       router.refresh();
       addToast({
-        title: "บันทึกข้อมูลสำเร็จ",
+        title: "เปลี่ยนแปลงข้อมูลสำเร็จ",
         color: "success",
       });
     }
-  };
 
+
+  };
   return (
     <Modal
       isOpen={isOpen}
@@ -80,7 +75,7 @@ export default function AddLogModal({
       backdrop="blur"
     >
       <ModalContent>
-        <ModalHeader>เพิ่มบันทึกการดื่มน้ำ</ModalHeader>
+        <ModalHeader>แก้ไขการดื่มน้ำ</ModalHeader>
         <ModalBody>
           <I18nProvider locale="en-GB">
             <DatePicker
@@ -101,7 +96,6 @@ export default function AddLogModal({
             label="ชื่อเครื่องดื่ม"
             variant="bordered"
             value={drinkName}
-            isRequired
             onChange={(e) => setDrinkName(e.target.value)}
           />
           <Input
@@ -109,7 +103,6 @@ export default function AddLogModal({
             label="ปริมาณเครื่องดื่ม (ml)"
             variant="bordered"
             value={amountMl}
-            isRequired
             min={0}
             onChange={(e) => setAmountMl(e.target.value)}
           />
@@ -118,11 +111,11 @@ export default function AddLogModal({
           <Button color="danger" onPress={() => onOpenChange(false)}>
             ยกเลิก
           </Button>
-          <Button color="primary" onPress={handleUploadLog}>
-            เพิ่ม
+          <Button color="primary" onPress={handleUpdateLog}>
+            บันทึกการแก้ไข
           </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
-  );
+  )
 }

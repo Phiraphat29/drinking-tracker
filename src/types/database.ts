@@ -4,7 +4,7 @@ export type Profile = {
     username: string;
     daily_goal_ml: number;
     avatar_url: string;
-} ;
+};
 
 export type Log = {
     id: number;
@@ -12,10 +12,10 @@ export type Log = {
     user_id: string;
     drink_name: string;
     amount_ml: number;
-} | null;
+};
 
 export type DashboardClientProps = {
     user: User;
     profile: Profile;
-    logs: Log[];
-}
+    logs: (Log | null)[];
+};
