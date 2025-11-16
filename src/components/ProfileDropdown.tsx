@@ -27,11 +27,15 @@ export default function ProfileDropdown({
   const avatarUrl = profile?.avatar_url || user.user_metadata.avatar_url;
   const displayName = profile?.username || "User";
   const email = user.email;
+
   const [notifyPermission, setNotifyPermission] =
     useState<NotificationPermission>("default");
   const [isNotificationsEnabled, setIsNotificationsEnabled] =
     useState<boolean>(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if ("Notification" in window) {
@@ -81,7 +85,6 @@ export default function ProfileDropdown({
       return;
     }
 
-    // notifyPermission === "granted": toggle our internal switch
     const nextEnabled = !isNotificationsEnabled;
     setIsNotificationsEnabled(nextEnabled);
     localStorage.setItem("notificationsEnabled", String(nextEnabled));
@@ -94,6 +97,8 @@ export default function ProfileDropdown({
       } catch {}
     }
   };
+
+  if (!mounted) return null;
 
   return (
     <div className="flex items-center gap-5">
