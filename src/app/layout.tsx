@@ -10,7 +10,21 @@ const notoSansThai = Noto_Sans_Thai({
 
 export const metadata: Metadata = {
   title: "Drinking Tracker App",
-  description: "Track your drinking habits",
+  description: "เว็บแอปสำหรับติดตามการดื่มน้ำของคุณ",
+  keywords: ["ติดตามการดื่มน้ำ", "การดื่มน้ำ", "drinking tracker", "drink"],
+  authors: [
+    { name: "Phiraphat Loratsachan", url: "https://github.com/Phiraphat29" },
+    {
+      name: "Thayakorn Koomphai",
+      url: "https://github.com/6652410026ThayakornKoomphai",
+    },
+  ],
+  openGraph: {
+    title: "Drinking Tracker App",
+    description: "เว็บแอปสำหรับติดตามการดื่มน้ำของคุณ",
+    url: "https://drinking-tracker.vercel.app",
+    images: "/icon.png",
+  },
   icons: {
     icon: "/icon.png",
   },
@@ -22,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className="min-h-dvh">
       <head>
         {/* Font Awesome */}
         <script

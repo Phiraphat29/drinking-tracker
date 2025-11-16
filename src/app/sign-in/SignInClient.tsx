@@ -15,7 +15,7 @@ export default function SignInClient() {
         <div className="wave wave--3"></div>
       </div>
       {/* Main content */}
-      <div className="relative z-10 w-full max-w-md">
+      <div className="relative z-10 w-full max-sm:px-10 max-w-md">
         <Card className="isBlurred backdrop-blur-xl bg-white/80 shadow-2xl border border-white/20 rounded-4xl animate-slide-up">
           <CardHeader className="flex flex-col pt-8 gap-4 justify-center">
             <div className="text-center mb-8 animate-fade-in">

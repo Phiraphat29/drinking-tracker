@@ -7,6 +7,7 @@ import SettingModal from "@/components/modal/SettingModal";
 import NavBar from "@/components/NavBar";
 import AddLogModal from "@/components/modal/AddLogModal";
 import LogTable from "@/components/LogTable";
+import Footer from "@/components/Footer";
 
 export default function DashboardClient({
   user,
@@ -43,7 +44,7 @@ export default function DashboardClient({
       const twoHour = 2 * 60 * 60 * 1000;
 
       if (now - lastLogTime > twoHour) {
-        new Notification("คุณยังไม่ได้ดื่มน้ำใน 2 ชั่วโมงแล้ว!", {
+        new Notification("คุณยังไม่ได้ดื่มน้ำมา 2 ชั่วโมงแล้ว!", {
           body: "จิบน้ำสักหน่อยนะ!",
           icon: "/icon.png",
         });
@@ -54,8 +55,9 @@ export default function DashboardClient({
   }, [logs]);
 
   return (
-    <>
+    <div className="min-h-dvh flex flex-col">
       <NavBar user={user} profile={profile} />
+
       <SettingModal
         isOpen={isModalOpen}
         onOpenChange={setIsModalOpen}
@@ -68,20 +70,25 @@ export default function DashboardClient({
         onOpenChange={setIsAddLogModalOpen}
         userId={user.id}
       />
+
       <Button
         aria-label="Add log"
         color="primary"
         variant="shadow"
         isIconOnly
-        className="fixed bottom-6 right-6 z-50 h-15 w-15 rounded-full flex items-center justify-center text-2xl"
+        className="fixed bottom-6 right-6 max-sm:bottom-4 max-sm:right-4 z-50 h-15 w-15 rounded-full flex items-center justify-center text-2xl"
         onPress={() => setIsAddLogModalOpen(true)}
       >
         +
       </Button>
 
-      <div className="flex flex-col gap-2 h-full mx-auto max-w-7xl px-4 py-8">
-        <LogTable logs={logs} />
-      </div>
-    </>
+      <main className="flex-1">
+        <div className="flex flex-col gap-2 mx-auto max-w-7xl px-4 py-8 pb-10">
+          <LogTable logs={logs} />
+        </div>
+      </main>
+
+      <Footer />
+    </div>
   );
 }

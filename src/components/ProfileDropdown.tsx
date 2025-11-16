@@ -16,7 +16,7 @@ import GoalModal from "@/components/modal/SettingModal";
 
 type ProfileDropdownProps = {
   user: User;
-  profile: Profile | null;
+  profile: Profile;
 };
 
 export default function ProfileDropdown({
@@ -24,8 +24,8 @@ export default function ProfileDropdown({
   profile,
 }: ProfileDropdownProps) {
   const router = useRouter();
-  const avatarUrl = profile?.avatar_url || user.user_metadata.avatar_url;
-  const displayName = profile?.username || "User";
+  const avatarUrl = profile.avatar_url || user.user_metadata.avatar_url;
+  const displayName = profile.username || "User";
   const email = user.email;
 
   const [notifyPermission, setNotifyPermission] =
@@ -158,9 +158,7 @@ export default function ProfileDropdown({
         isOpen={isEditOpen}
         onOpenChange={setIsEditOpen}
         userId={user.id}
-        profile={
-          profile || { username: "", daily_goal_ml: 3000, avatar_url: "" }
-        }
+        profile={profile}
         mode="full"
       />
     </div>
