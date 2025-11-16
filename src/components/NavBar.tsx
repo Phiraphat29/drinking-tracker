@@ -5,7 +5,7 @@ import { Profile } from "@/types/database";
 
 type NavBarProps = {
   user: User;
-  profile: Profile | null;
+  profile: Profile;
 };
 
 export default function NavBar({ user, profile }: NavBarProps) {
