@@ -1,6 +1,11 @@
 "use client";
 
-import { now, getLocalTimeZone, ZonedDateTime } from "@internationalized/date";
+import {
+  now,
+  getLocalTimeZone,
+  ZonedDateTime,
+  parseAbsoluteToLocal,
+} from "@internationalized/date";
 import { useState } from "react";
 import {
   Modal,
@@ -24,7 +29,6 @@ interface UpdateLogModalProps {
   log: Log;
 }
 
-
 export default function UpdateLogModal({
   isOpen,
   onOpenChange,
@@ -33,11 +37,18 @@ export default function UpdateLogModal({
   const router = useRouter();
   const [drinkName, setDrinkName] = useState(log.drink_name);
   const [amountMl, setAmountMl] = useState(log.amount_ml.toString());
-  const [date, setDate] = useState<ZonedDateTime>(now(getLocalTimeZone()));
-
+  //* date is the date of the log
+  const [date, setDate] = useState<ZonedDateTime>(() =>
+    parseAbsoluteToLocal(log.created_at)
+  );
 
   const handleUpdateLog = async () => {
-    if (!drinkName.trim() || !amountMl.trim() || parseInt(amountMl) <= 0) {
+    if (
+      !drinkName.trim() ||
+      !amountMl.trim() ||
+      parseInt(amountMl) <= 0 ||
+      !date
+    ) {
       addToast({
         title: "ป้อนข้อมูลให้ครบถ้วน",
         description: "ป้อนชื่อเครื่องดื่มและเครื่องดื่ม",
@@ -45,11 +56,14 @@ export default function UpdateLogModal({
       });
       return;
     }
-    const { error } = await supabase.from("drinking_log").update({
-      drink_name: drinkName,
-      amount_ml: amountMl,
-      created_at: date.toDate().toISOString(),
-    }).eq("id", log.id);
+    const { error } = await supabase
+      .from("drinking_log")
+      .update({
+        drink_name: drinkName,
+        amount_ml: Number(amountMl),
+        created_at: date?.toDate().toISOString(),
+      })
+      .eq("id", log.id);
     if (error) {
       addToast({
         title: "เปลี่ยนแปลงข้อมูลไม่สำเร็จ",
@@ -64,8 +78,6 @@ export default function UpdateLogModal({
         color: "success",
       });
     }
-
-
   };
   return (
     <Modal
@@ -84,7 +96,6 @@ export default function UpdateLogModal({
               showMonthAndYearPickers
               granularity="minute"
               hourCycle={24}
-              defaultValue={now(getLocalTimeZone())}
               maxValue={now(getLocalTimeZone())}
               variant="bordered"
               onChange={(date) => setDate(date as ZonedDateTime)}
@@ -117,5 +128,5 @@ export default function UpdateLogModal({
         </ModalFooter>
       </ModalContent>
     </Modal>
-  )
+  );
 }

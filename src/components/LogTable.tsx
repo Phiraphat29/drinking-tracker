@@ -20,7 +20,7 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
 
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [log, setLog] = useState<Log | null>(null);
-  
+
   return (
     <>
       <DeleteLogModal
@@ -28,11 +28,13 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
         onOpenChange={setIsDeleteModalOpen}
         id={logId}
       />
-      <UpdateLogModal
-        isOpen={isUpdateModalOpen}
-        onOpenChange={setIsUpdateModalOpen}
-        log={log || ({} as Log)}
-      />      
+      {isUpdateModalOpen && log && (
+        <UpdateLogModal
+          isOpen={isUpdateModalOpen}
+          onOpenChange={setIsUpdateModalOpen}
+          log={log}
+        />
+      )}
       <Table
         aria-label="Drinking log table"
         className="overflow-x-auto bg-white/50 rounded-4xl"
@@ -51,40 +53,55 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
           <TableColumn width={50} align="center" className="text-md">
             จัดการ
           </TableColumn>
-      </TableHeader>
-      <TableBody>
-        {logs.length === 0 ? (
-          <TableRow>
-            <TableCell colSpan={5} className="text-center">
-              ไม่พบข้อมูล
-            </TableCell>
-          </TableRow> 
-        ) : (
-          logs.map((log) => (
-            <TableRow key={log?.id}>
-              <TableCell>
-                {new Date(log?.created_at || "").toLocaleDateString("th-TH", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </TableCell>
-              <TableCell>{log?.drink_name}</TableCell>
-              <TableCell>{log?.amount_ml}</TableCell>
-              <TableCell className="flex gap-2 justify-center">
-                <Button color="primary" variant="shadow" onPress={() => {setLog(log); setIsUpdateModalOpen(true);}}>
-                  แก้ไข
-                </Button>
-                <Button color="danger" variant="shadow" onPress={() => {setLogId(log?.id || 0); setIsDeleteModalOpen(true);}}>
-                  ลบ
-                </Button>
+        </TableHeader>
+        <TableBody>
+          {logs.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center">
+                ไม่พบข้อมูล
               </TableCell>
             </TableRow>
-          ))
-        )}
-      </TableBody>
-    </Table></>
+          ) : (
+            logs.map((log) => (
+              <TableRow key={log?.id}>
+                <TableCell>
+                  {new Date(log?.created_at || "").toLocaleDateString("th-TH", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </TableCell>
+                <TableCell>{log?.drink_name}</TableCell>
+                <TableCell>{log?.amount_ml}</TableCell>
+                <TableCell className="flex gap-2 justify-center">
+                  <Button
+                    color="primary"
+                    variant="shadow"
+                    onPress={() => {
+                      setLog(log);
+                      setIsUpdateModalOpen(true);
+                    }}
+                  >
+                    แก้ไข
+                  </Button>
+                  <Button
+                    color="danger"
+                    variant="shadow"
+                    onPress={() => {
+                      setLogId(log?.id || 0);
+                      setIsDeleteModalOpen(true);
+                    }}
+                  >
+                    ลบ
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </>
   );
 }
