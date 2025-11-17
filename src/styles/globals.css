@@ -8,3 +8,11 @@ body {
   @apply bg-linear-to-br from-blue-300 via-cyan-100 to-teal-300 text-gray-900 ;
 }
 
+.dark body {
+  @apply bg-linear-to-br from-black via-indigo-900 to-blue-700 text-gray-100;
+}
+
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
