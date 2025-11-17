@@ -20,11 +20,13 @@ export default function NavBar({ user, profile }: NavBarProps) {
       </NavbarContent>
       <NavbarContent justify="center">
         <NavbarItem>
-          <p className="text-3xl font-semibold max-sm:hidden">Dashboard</p>
+          <p className="text-3xl font-semibold max-sm:hidden max-md:hidden">
+            Dashboard
+          </p>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
+        <NavbarItem className="max-sm:hidden max-md:hidden">
           <ThemeSwitcher />
         </NavbarItem>
         <NavbarItem>

@@ -35,25 +35,18 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
           log={log}
         />
       )}
+
       <Table
         aria-label="Drinking log table"
+        className="rounded-3xl text-xs sm:text-sm"
         isVirtualized
-        maxTableHeight={600}
-        className="overflow-x-auto rounded-3xl"
+        maxTableHeight={500}
       >
         <TableHeader>
-          <TableColumn width={200} align="start" className="text-md">
-            วันที่ดื่ม
-          </TableColumn>
-          <TableColumn width={200} align="start" className="text-md">
-            ประเภทเครื่องดื่ม
-          </TableColumn>
-          <TableColumn width={200} align="start" className="text-md">
-            ปริมาณเครื่องดื่ม (ml)
-          </TableColumn>
-          <TableColumn width={50} align="center" className="text-md">
-            จัดการ
-          </TableColumn>
+          <TableColumn align="start">วันที่ดื่ม</TableColumn>
+          <TableColumn align="start">ประเภทเครื่องดื่ม</TableColumn>
+          <TableColumn align="end">ปริมาณ (ml)</TableColumn>
+          <TableColumn align="center">จัดการ</TableColumn>
         </TableHeader>
         <TableBody>
           {logs.length === 0 ? (
@@ -66,39 +59,87 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
             logs.map((log) => (
               <TableRow key={log?.id}>
                 <TableCell>
-                  {new Date(log?.created_at || "").toLocaleDateString("th-TH", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </TableCell>
-                <TableCell>{log?.drink_name}</TableCell>
-                <TableCell>{log?.amount_ml}</TableCell>
-                <TableCell className="justify-center">
-                  <span className="flex gap-2 justify-center">
-                    <Button
-                      color="primary"
-                      variant="shadow"
-                      onPress={() => {
-                        setLog(log);
-                        setIsUpdateModalOpen(true);
-                      }}
-                    >
-                      แก้ไข
-                    </Button>
-                    <Button
-                      color="danger"
-                      variant="ghost"
-                      onPress={() => {
-                        setLogId(log?.id || 0);
-                        setIsDeleteModalOpen(true);
-                      }}
-                    >
-                      ลบ
-                    </Button>
+                  <span className="hidden sm:inline">
+                    {new Date(log?.created_at || "").toLocaleDateString(
+                      "th-TH",
+                      {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      }
+                    )}
                   </span>
+                  {/* date for mobile */}
+                  <span className="sm:hidden">
+                    {new Date(log?.created_at || "").toLocaleDateString(
+                      "th-TH",
+                      {
+                        year: "2-digit",
+                        month: "numeric",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      }
+                    )}
+                  </span>
+                </TableCell>
+
+                <TableCell className="truncate max-w-40 sm:max-w-none">
+                  {log?.drink_name}
+                </TableCell>
+
+                <TableCell className="text-right">{log?.amount_ml}</TableCell>
+
+                <TableCell className="flex justify-center gap-2">
+                  <Button
+                    className="max-sm:hidden"
+                    color="primary"
+                    variant="shadow"
+                    onPress={() => {
+                      setLog(log);
+                      setIsUpdateModalOpen(true);
+                    }}
+                  >
+                    แก้ไข
+                  </Button>
+                  <Button
+                    className="max-sm:hidden"
+                    color="danger"
+                    variant="ghost"
+                    onPress={() => {
+                      setLogId(log?.id || 0);
+                      setIsDeleteModalOpen(true);
+                    }}
+                  >
+                    ลบ
+                  </Button>
+
+                  {/* icon-only for mobile */}
+                  <Button
+                    className="sm:hidden"
+                    isIconOnly
+                    color="primary"
+                    onPress={() => {
+                      setLog(log);
+                      setIsUpdateModalOpen(true);
+                    }}
+                  >
+                    <i className="fa-solid fa-pen" />
+                  </Button>
+                  <Button
+                    className="sm:hidden"
+                    isIconOnly
+                    color="danger"
+                    variant="flat"
+                    onPress={() => {
+                      setLogId(log?.id || 0);
+                      setIsDeleteModalOpen(true);
+                    }}
+                  >
+                    <i className="fa-solid fa-trash" />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))

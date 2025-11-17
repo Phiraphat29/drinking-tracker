@@ -76,7 +76,7 @@ export default function DashboardClient({
         color="primary"
         variant="shadow"
         isIconOnly
-        className="fixed bottom-6 right-6 max-sm:bottom-4 max-sm:right-4 z-50 h-15 w-15 rounded-full flex items-center justify-center text-2xl"
+        className="fixed bottom-6 right-6 max-sm:bottom-10 max-sm:right-4 z-50 h-15 w-15 rounded-full flex items-center justify-center text-2xl"
         onPress={() => setIsAddLogModalOpen(true)}
       >
         +

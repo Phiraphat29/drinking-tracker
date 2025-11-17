@@ -4,6 +4,7 @@ import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
+  DropdownSection,
   DropdownItem,
   Avatar,
 } from "@heroui/react";
@@ -12,7 +13,9 @@ import { Profile } from "@/types/database";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import GoalModal from "@/components/modal/SettingModal";
+import { useTheme } from "next-themes";
+import SettingModal from "@/components/modal/SettingModal";
+import { Check, MonitorCog, Moon, Sun } from "lucide-react";
 
 type ProfileDropdownProps = {
   user: User;
@@ -24,6 +27,7 @@ export default function ProfileDropdown({
   profile,
 }: ProfileDropdownProps) {
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
   const avatarUrl = profile.avatar_url || user.user_metadata.avatar_url;
   const displayName = profile.username || "User";
   const email = user.email;
@@ -32,7 +36,7 @@ export default function ProfileDropdown({
     useState<NotificationPermission>("default");
   const [isNotificationsEnabled, setIsNotificationsEnabled] =
     useState<boolean>(false);
-  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isSettingOpen, setIsSettingOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -102,7 +106,7 @@ export default function ProfileDropdown({
 
   return (
     <div className="flex items-center gap-5">
-      <Dropdown placement="bottom-end">
+      <Dropdown placement="bottom-end" backdrop="blur">
         <DropdownTrigger>
           <div className="flex items-center gap-3 cursor-pointer hover:bg-zinc-300 dark:hover:bg-gray-700 p-2 ps-5 rounded-full transition-background ease-in-out duration-800">
             <div className="flex flex-col items-end max-sm:hidden">
@@ -125,40 +129,88 @@ export default function ProfileDropdown({
           </div>
         </DropdownTrigger>
         <DropdownMenu color="primary" variant="solid">
-          <DropdownItem
-            key="edit-profile"
-            className="text-blue-700"
-            color="primary"
-            onPress={() => setIsEditOpen(true)}
-          >
-            แก้ไขข้อมูลผู้ใช้
-          </DropdownItem>
-          <DropdownItem
-            key="request-notifications"
-            onPress={handleToggleNotifications}
-            className="text-blue-700"
-            color="primary"
-            isDisabled={notifyPermission === "denied"}
-          >
-            {notifyPermission === "denied"
-              ? "คุณบล็อกการแจ้งเตือน (เปิดในเบราว์เซอร์)"
-              : notifyPermission === "granted" && isNotificationsEnabled
-              ? "ปิดการแจ้งเตือน"
-              : "เปิดการแจ้งเตือน"}
-          </DropdownItem>
-          <DropdownItem
-            key="sign-out"
-            onPress={handleSignOut}
-            className="text-danger"
-            color="danger"
-          >
-            ออกจากระบบ
-          </DropdownItem>
+          <DropdownSection title="ธีม" className="md:hidden">
+            <DropdownItem
+              key="theme-system"
+              onPress={() => {
+                setTheme("system");
+              }}
+              className="text-blue-500 md:hidden"
+              startContent={<MonitorCog className="w-5 h-5" />}
+              endContent={
+                theme === "system" ? <Check className="w-5 h-5" /> : null
+              }
+              color="primary"
+            >
+              ระบบ
+            </DropdownItem>
+            <DropdownItem
+              key="theme-light"
+              onPress={() => {
+                setTheme("light");
+              }}
+              className="text-blue-500 md:hidden"
+              startContent={<Sun className="w-5 h-5" />}
+              endContent={
+                theme === "light" ? <Check className="w-5 h-5" /> : null
+              }
+              color="primary"
+            >
+              สว่าง
+            </DropdownItem>
+            <DropdownItem
+              key="theme-dark"
+              onPress={() => {
+                setTheme("dark");
+              }}
+              className="text-blue-500 md:hidden"
+              startContent={<Moon className="w-5 h-5" />}
+              endContent={
+                theme === "dark" ? <Check className="w-5 h-5" /> : null
+              }
+              color="primary"
+            >
+              มืด
+            </DropdownItem>
+          </DropdownSection>
+          <DropdownSection title="การตั้งค่าบัญชี">
+            <DropdownItem
+              key="edit-profile"
+              className="text-blue-500"
+              color="primary"
+              onPress={() => setIsSettingOpen(true)}
+            >
+              แก้ไขข้อมูลผู้ใช้
+            </DropdownItem>
+            <DropdownItem
+              key="request-notifications"
+              onPress={handleToggleNotifications}
+              className="text-blue-500"
+              color="primary"
+              isDisabled={notifyPermission === "denied"}
+            >
+              {notifyPermission === "denied"
+                ? "คุณบล็อกการแจ้งเตือน (เปิดในเบราว์เซอร์)"
+                : notifyPermission === "granted" && isNotificationsEnabled
+                ? "ปิดการแจ้งเตือน"
+                : "เปิดการแจ้งเตือน"}
+            </DropdownItem>
+          </DropdownSection>
+          <DropdownSection title="ออกจากระบบ">
+            <DropdownItem
+              key="sign-out"
+              onPress={handleSignOut}
+              className="text-danger"
+              color="danger"
+            >
+              ออกจากระบบ
+            </DropdownItem>
+          </DropdownSection>
         </DropdownMenu>
       </Dropdown>
-      <GoalModal
-        isOpen={isEditOpen}
-        onOpenChange={setIsEditOpen}
+      <SettingModal
+        isOpen={isSettingOpen}
+        onOpenChange={setIsSettingOpen}
         userId={user.id}
         profile={profile}
         mode="full"
