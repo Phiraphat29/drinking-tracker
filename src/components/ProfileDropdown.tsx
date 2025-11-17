@@ -104,12 +104,14 @@ export default function ProfileDropdown({
     <div className="flex items-center gap-5">
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
-          <div className="flex items-center gap-3 cursor-pointer hover:bg-zinc-300 p-2 ps-5 rounded-full transition-background ease-in-out duration-800">
+          <div className="flex items-center gap-3 cursor-pointer hover:bg-zinc-300 dark:hover:bg-gray-700 p-2 ps-5 rounded-full transition-background ease-in-out duration-800">
             <div className="flex flex-col items-end max-sm:hidden">
               <span className="text-md font-bold text-blue-700">
                 {displayName}
               </span>
-              <span className="text-sm text-zinc-500">{email}</span>
+              <span className="text-sm text-zinc-500 dark:text-gray-400">
+                {email}
+              </span>
             </div>
             <Avatar
               isBordered

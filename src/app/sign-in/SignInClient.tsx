@@ -1,6 +1,6 @@
 "use client";
 
-import LoginButton from "@/components/LoginButton";
+import LoginButton from "@/components/button/LoginButton";
 import { Card, CardHeader, CardBody } from "@heroui/react";
 import Image from "next/image";
 import "@/styles/wave.css";
@@ -16,7 +16,7 @@ export default function SignInClient() {
       </div>
       {/* Main content */}
       <div className="relative z-10 w-full max-sm:px-10 max-w-md">
-        <Card className="isBlurred backdrop-blur-xl bg-white/80 shadow-2xl border border-white/20 rounded-4xl animate-slide-up">
+        <Card className="isBlurred backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 shadow-2xl border border-white/20 dark:border-gray-700 rounded-4xl animate-slide-up">
           <CardHeader className="flex flex-col pt-8 gap-4 justify-center">
             <div className="text-center mb-8 animate-fade-in">
               <h1 className="text-4xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent mb-2">

@@ -4,8 +4,8 @@ export default function Footer() {
   return (
     <footer className="w-full mt-8">
       <div className="w-full">
-        <div className="w-full bg-white/50 backdrop-blur-sm shadow-sm px-6 py-4 grid grid-cols-2 items-center gap-3">
-          <div className="text-sm text-gray-700 pl-20 max-sm:pl-0 max-md:pl-10">
+        <div className="w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm shadow-sm px-6 py-4 grid grid-cols-2 items-center gap-3">
+          <div className="text-sm text-gray-700 dark:text-gray-300 pl-20 max-sm:pl-0 max-md:pl-10">
             <span className="font-semibold">Copyright@2025</span>
             <span> • made by </span>
             <Link
@@ -26,7 +26,7 @@ export default function Footer() {
               Thayakorn Koomphai
             </Link>
           </div>
-          <div className="flex gap-2 text-sm text-gray-700 justify-self-end flex-wrap pr-20 max-md:pr-5">
+          <div className="flex gap-2 text-sm text-gray-700 dark:text-gray-300 justify-self-end flex-wrap pr-20 max-md:pr-5">
             <span>Powered by</span>
             <Link
               href="https://nextjs.org/"
@@ -54,7 +54,7 @@ export default function Footer() {
             <Link
               href="https://github.com/Phiraphat29/drinking-tracker"
               aria-label="Project GitHub repository"
-              className="ms-1 text-gray-800 hover:text-blue-700 transition-colors duration-300 max-sm:block"
+              className="ms-1 text-gray-800 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-700 transition-colors duration-300 max-sm:block"
               target="_blank"
               rel="noopener noreferrer"
             >

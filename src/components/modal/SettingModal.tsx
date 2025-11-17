@@ -9,6 +9,7 @@ import {
   ModalFooter,
   Button,
   Input,
+  addToast,
 } from "@heroui/react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
@@ -98,6 +99,11 @@ export default function SettingModal({
       if (updateError) {
         throw updateError;
       }
+
+      addToast({
+        title: "บันทึกข้อมูลสำเร็จ",
+        color: "success",
+      });
 
       onOpenChange(false);
       router.refresh();

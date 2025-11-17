@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import { Spinner } from "@heroui/react";
 
 export default function Page() {
   const router = useRouter();
@@ -29,7 +30,12 @@ export default function Page() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="text-center">
-        <p>Loading...</p>
+        <Spinner
+          color="primary"
+          variant="wave"
+          size="lg"
+          label="กำลังตรวจสอบข้อมูลผู้ใช้..."
+        />
       </div>
     </div>
   );

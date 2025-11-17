@@ -37,7 +37,9 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
       )}
       <Table
         aria-label="Drinking log table"
-        className="overflow-x-auto bg-white/50 rounded-4xl"
+        isVirtualized
+        maxTableHeight={600}
+        className="overflow-x-auto rounded-3xl"
       >
         <TableHeader>
           <TableColumn width={200} align="start" className="text-md">
@@ -63,7 +65,7 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
           ) : (
             logs.map((log) => (
               <TableRow key={log?.id}>
-                <TableCell className="border-b-1 border-gray-200">
+                <TableCell>
                   {new Date(log?.created_at || "").toLocaleDateString("th-TH", {
                     year: "numeric",
                     month: "long",
@@ -72,13 +74,9 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
                     minute: "2-digit",
                   })}
                 </TableCell>
-                <TableCell className="border-b-1 border-gray-200">
-                  {log?.drink_name}
-                </TableCell>
-                <TableCell className="border-b-1 border-gray-200">
-                  {log?.amount_ml}
-                </TableCell>
-                <TableCell className="border-b-1 border-gray-200 justify-center">
+                <TableCell>{log?.drink_name}</TableCell>
+                <TableCell>{log?.amount_ml}</TableCell>
+                <TableCell className="justify-center">
                   <span className="flex gap-2 justify-center">
                     <Button
                       color="primary"
@@ -92,7 +90,7 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
                     </Button>
                     <Button
                       color="danger"
-                      variant="shadow"
+                      variant="ghost"
                       onPress={() => {
                         setLogId(log?.id || 0);
                         setIsDeleteModalOpen(true);

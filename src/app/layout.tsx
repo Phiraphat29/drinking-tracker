@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="min-h-dvh">
+    <html lang="en" className="min-h-dvh" suppressHydrationWarning>
       <head>
         {/* Font Awesome */}
         <script

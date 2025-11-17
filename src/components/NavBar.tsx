@@ -2,6 +2,7 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
 import ProfileDropdown from "@/components/ProfileDropdown";
 import { User } from "@supabase/supabase-js";
 import { Profile } from "@/types/database";
+import { ThemeSwitcher } from "./button/ThemeSwitcher";
 
 type NavBarProps = {
   user: User;
@@ -19,10 +20,13 @@ export default function NavBar({ user, profile }: NavBarProps) {
       </NavbarContent>
       <NavbarContent justify="center">
         <NavbarItem>
-          <p className="text-3xl font-semibold max-sm:hidden">Overview</p>
+          <p className="text-3xl font-semibold max-sm:hidden">Dashboard</p>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
+        <NavbarItem>
+          <ThemeSwitcher />
+        </NavbarItem>
         <NavbarItem>
           <ProfileDropdown user={user} profile={profile} />
         </NavbarItem>
