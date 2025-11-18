@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🥤 Drinking Tracker
 
-## Getting Started
+ติดตามและบันทึกพฤติกรรมการดื่มน้ำของคุณอย่างง่ายดาย  
+ช่วยส่งเสริมสุขภาพและสร้างนิสัยการดื่มน้ำที่ดีในชีวิตประจำวัน
 
-First, run the development server:
+---------------------------------------------------
+
+## 🚀 คุณสมบัติเด่น
+
+- เพิ่ม/บันทึกปริมาณน้ำที่ดื่มในแต่ละวันได้ง่าย ๆ  
+- ดูกราฟสรุปการดื่มน้ำแบบรายวันและรายสัปดาห์  
+- ตั้งเป้าหมายการดื่มน้ำและได้รับแจ้งเตือน  
+- อินเทอร์เฟซใช้งานง่าย สวยงาม และสะดวก
+- สามารถปรับเป็นโหมดกลางวันและกลางคืนเพื่อความสะดวกต่อสายตา
+
+---------------------------------------------------
+
+## 💻 เทคโนโลยีที่ใช้
+
+- [TypeScript]  (95.4%)
+- [CSS]   (3.7%)
+- [JavaScript]  (0.9%)
+
+---------------------------------------------------
+
+## 📦 วิธีติดตั้งและเริ่มต้นใช้งาน
 
 ```bash
+git clone https://github.com/Phiraphat29/drinking-tracker.git
+cd drinking-tracker
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+เปิดเว็บแอปพลิเคชันบน `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---------------------------------------------------
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🌟 ร่วมพัฒนาและให้กำลังใจ
 
-## Learn More
+พบปัญหาหรือมีข้อเสนอแนะ สามารถสร้าง [Issue](https://github.com/Phiraphat29/drinking-tracker/issues)  
+หากชื่นชอบโปรเจคนี้ กด ⭐️ เพื่อเป็นกำลังใจได้เลย!
 
-To learn more about Next.js, take a look at the following resources:
+---------------------------------------------------
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> **Drinking Tracker: พลิกโฉมนิสัยคุณ เพื่อสุขภาพที่ดีกว่า**
