@@ -30,5 +30,18 @@ https://drinking-tracker.vercel.app/
 
 ---------------------------------------------------
 
+## 📱 Image Preview: Phone
+<div align='center'>
+<img width="1080" height="2408" alt="image" src="https://github.com/user-attachments/assets/d846796e-85ac-471a-8437-0900752edcbb" />
+<img width="1080" height="2408" alt="image" src="https://github.com/user-attachments/assets/db564b58-b188-4849-846c-3a421142c950" />
+</div>
+
+
+## 🖥️ Image Preview: PC
+<div align='center'>
+<img width="1366" height="627" alt="image" src="https://github.com/user-attachments/assets/0b311e19-cdd2-4ed7-88e4-b73eea2817ae" /> 
+<img width="1353" height="630" alt="image" src="https://github.com/user-attachments/assets/9ee5b2a9-f558-4184-b6f1-b74d692a0f35" />
+</div>
+---------------------------------------------------
 
 > **Drinking Tracker: พลิกโฉมนิสัยคุณ เพื่อสุขภาพที่ดีกว่า**
