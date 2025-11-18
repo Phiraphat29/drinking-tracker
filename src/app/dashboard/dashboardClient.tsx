@@ -1,6 +1,6 @@
 "use client";
 
-import { DashboardClientProps } from "@/types/database";
+import { DashboardClientProps, Log } from "@/types/database";
 import { useState, useEffect } from "react";
 import { addToast, Button } from "@heroui/react";
 import SettingModal from "@/components/modal/SettingModal";
@@ -8,6 +8,7 @@ import NavBar from "@/components/NavBar";
 import AddLogModal from "@/components/modal/AddLogModal";
 import LogTable from "@/components/LogTable";
 import Footer from "@/components/Footer";
+import StatsCard from "@/components/StatsCard";
 
 export default function DashboardClient({
   user,
@@ -83,7 +84,13 @@ export default function DashboardClient({
       </Button>
 
       <main className="flex-1">
-        <div className="flex flex-col gap-2 mx-auto max-w-7xl px-4 py-8 pb-10">
+        <div className="flex flex-col gap-2 mx-auto max-w-4xl px-4 py-4">
+          <StatsCard
+            logs={logs.filter((log) => log !== null) as Log[]}
+            dailyGoal={profile?.daily_goal_ml || 0}
+          />
+        </div>
+        <div className="flex flex-col gap-2 mx-auto max-w-4xl px-4">
           <LogTable logs={logs} />
         </div>
       </main>
