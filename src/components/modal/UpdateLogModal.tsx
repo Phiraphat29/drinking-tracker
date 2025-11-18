@@ -89,7 +89,7 @@ export default function UpdateLogModal({
       <ModalContent>
         <ModalHeader>แก้ไขการดื่มน้ำ</ModalHeader>
         <ModalBody>
-          <I18nProvider locale="en-GB">
+          <I18nProvider locale="th-TH">
             <DatePicker
               label="วันที่ดื่ม"
               hideTimeZone

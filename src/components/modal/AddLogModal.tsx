@@ -1,6 +1,5 @@
 "use client";
 
-
 import { now, getLocalTimeZone, ZonedDateTime } from "@internationalized/date";
 import { useState } from "react";
 import {
@@ -82,7 +81,7 @@ export default function AddLogModal({
       <ModalContent>
         <ModalHeader>เพิ่มบันทึกการดื่มน้ำ</ModalHeader>
         <ModalBody>
-          <I18nProvider locale="en-GB">
+          <I18nProvider locale="th-TH">
             <DatePicker
               label="วันที่ดื่ม"
               hideTimeZone
