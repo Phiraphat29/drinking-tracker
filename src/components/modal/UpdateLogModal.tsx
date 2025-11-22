@@ -22,6 +22,7 @@ import { I18nProvider } from "@react-aria/i18n";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { Log } from "@/types/database";
+import VolumeSelector from "../button/VolumeSelector";
 
 interface UpdateLogModalProps {
   isOpen: boolean;
@@ -108,6 +109,10 @@ export default function UpdateLogModal({
             variant="bordered"
             value={drinkName}
             onChange={(e) => setDrinkName(e.target.value)}
+          />
+          <VolumeSelector
+            currentValue={parseInt(amountMl)}
+            onSelect={(value) => setAmountMl(value.toString())}
           />
           <Input
             type="number"

@@ -33,7 +33,7 @@ export default function SettingModal({
   const router = useRouter();
   const [username, setUsername] = useState(profile?.username || "");
   const [dailyGoal, setDailyGoal] = useState<number>(
-    profile?.daily_goal_ml || 3000
+    profile?.daily_goal_ml || 2000
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -179,6 +179,10 @@ export default function SettingModal({
               />
               {error && <p className="text-danger text-sm">{error}</p>}
             </div>
+            <p className="text-xs text-gray-500">
+              *หมายเหตุ: ปริมาณน้ำที่ควรดื่มต่อวันสำหรับคนทั่วไปควรอยู่ระหว่าง
+              1500 - 2500 ml
+            </p>
           </ModalBody>
           <ModalFooter>
             {mode === "full" && (
@@ -196,7 +200,7 @@ export default function SettingModal({
               isLoading={isLoading}
               isDisabled={isLoading}
             >
-              Save
+              บันทึก
             </Button>
           </ModalFooter>
         </form>

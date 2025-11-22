@@ -16,6 +16,7 @@ import {
 import { I18nProvider } from "@react-aria/i18n";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import VolumeSelector from "@/components/button/VolumeSelector";
 
 interface AddLogModalProps {
   isOpen: boolean;
@@ -77,6 +78,7 @@ export default function AddLogModal({
       onOpenChange={onOpenChange}
       placement="top-center"
       backdrop="blur"
+      size="lg"
     >
       <ModalContent>
         <ModalHeader>เพิ่มบันทึกการดื่มน้ำ</ModalHeader>
@@ -90,6 +92,7 @@ export default function AddLogModal({
               hourCycle={24}
               defaultValue={now(getLocalTimeZone())}
               maxValue={now(getLocalTimeZone())}
+              color="primary"
               variant="bordered"
               onChange={(date) => setDate(date as ZonedDateTime)}
               value={date}
@@ -98,14 +101,20 @@ export default function AddLogModal({
           <Input
             type="text"
             label="ชื่อเครื่องดื่ม"
+            color="primary"
             variant="bordered"
             value={drinkName}
             isRequired
             onChange={(e) => setDrinkName(e.target.value)}
           />
+          <VolumeSelector
+            currentValue={parseInt(amountMl)}
+            onSelect={(value) => setAmountMl(value.toString())}
+          />
           <Input
             type="number"
             label="ปริมาณเครื่องดื่ม (ml)"
+            color="primary"
             variant="bordered"
             value={amountMl}
             isRequired
