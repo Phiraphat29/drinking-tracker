@@ -98,6 +98,7 @@ export default function UpdateLogModal({
               granularity="minute"
               hourCycle={24}
               maxValue={now(getLocalTimeZone())}
+              color="primary"
               variant="bordered"
               onChange={(date) => setDate(date as ZonedDateTime)}
               value={date}
@@ -106,6 +107,7 @@ export default function UpdateLogModal({
           <Input
             type="text"
             label="ชื่อเครื่องดื่ม"
+            color="primary"
             variant="bordered"
             value={drinkName}
             onChange={(e) => setDrinkName(e.target.value)}
@@ -117,6 +119,7 @@ export default function UpdateLogModal({
           <Input
             type="number"
             label="ปริมาณเครื่องดื่ม (ml)"
+            color="primary"
             variant="bordered"
             value={amountMl}
             min={0}
