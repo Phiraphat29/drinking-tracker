@@ -11,24 +11,22 @@ type NavBarProps = {
 
 export default function NavBar({ user, profile }: NavBarProps) {
   return (
-    <Navbar maxWidth="full">
+    <Navbar maxWidth="full" shouldHideOnScroll>
       <NavbarContent justify="start">
         <NavbarBrand>
           <img src="/icon.png" alt="Logo" className="h-10" />
-          <p className="font-bold text-inherit">Drinking Tracker</p>
+          <p className="font-extrabold text-inherit">Drinking Tracker</p>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="center">
         <NavbarItem>
-          <p className="text-3xl font-semibold max-sm:hidden max-md:hidden">
+          <p className="text-3xl font-extrabold max-sm:hidden max-md:hidden">
             Dashboard
           </p>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="max-sm:hidden max-md:hidden">
-          <ThemeSwitcher />
-        </NavbarItem>
+        <NavbarItem className="max-sm:hidden max-md:hidden"></NavbarItem>
         <NavbarItem>
           <ProfileDropdown user={user} profile={profile} />
         </NavbarItem>

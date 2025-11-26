@@ -8,6 +8,7 @@ import {
   TableRow,
   TableCell,
   Button,
+  ScrollShadow,
 } from "@heroui/react";
 import { Log } from "@/types/database";
 import DeleteLogModal from "@/components/modal/DeleteLogModal";
@@ -40,9 +41,10 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
         aria-label="Drinking log table"
         className="rounded-3xl text-xs sm:text-sm"
         isVirtualized
+        isHeaderSticky
         maxTableHeight={500}
       >
-        <TableHeader>
+        <TableHeader className="table-header">
           <TableColumn align="start">วันที่ดื่ม</TableColumn>
           <TableColumn align="start">ประเภทเครื่องดื่ม</TableColumn>
           <TableColumn align="end">ปริมาณ (ml)</TableColumn>
@@ -92,7 +94,7 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
 
                 <TableCell className="text-right">{log?.amount_ml}</TableCell>
 
-                <TableCell className="flex justify-center gap-2">
+                <TableCell className="flex justify-center gap-3">
                   <Button
                     className="max-sm:hidden"
                     color="primary"

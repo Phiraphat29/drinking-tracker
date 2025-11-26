@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
 import "@/styles/globals.css";
 import Providers from "@/lib/providers";
+import Bg from "@/components/Bg";
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ["latin", "thai"],
@@ -45,9 +46,12 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${notoSansThai.className} antialiased select-none h-full`}
+        className={`${notoSansThai.className} antialiased select-none h-full relative`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Bg />
+          {children}
+        </Providers>
       </body>
     </html>
   );

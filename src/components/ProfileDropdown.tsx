@@ -108,7 +108,7 @@ export default function ProfileDropdown({
     <div className="flex items-center gap-5">
       <Dropdown placement="bottom-end" backdrop="blur">
         <DropdownTrigger>
-          <div className="flex items-center gap-3 cursor-pointer hover:bg-zinc-300 dark:hover:bg-gray-700 p-2 ps-5 rounded-full transition-background ease-in-out duration-800">
+          <div className="flex items-center gap-3 cursor-pointer hover:bg-zinc-300 dark:hover:bg-gray-700 pe-2 px-1 ps-5 rounded-xl transition-background ease-in-out duration-300">
             <div className="flex flex-col items-end max-sm:hidden">
               <span className="text-md font-bold text-blue-700">
                 {displayName}
@@ -129,13 +129,13 @@ export default function ProfileDropdown({
           </div>
         </DropdownTrigger>
         <DropdownMenu color="primary" variant="solid">
-          <DropdownSection title="ธีม" className="md:hidden">
+          <DropdownSection title="ธีม">
             <DropdownItem
               key="theme-system"
               onPress={() => {
                 setTheme("system");
               }}
-              className="text-blue-500 md:hidden"
+              className="text-blue-500"
               startContent={<MonitorCog className="w-5 h-5" />}
               endContent={
                 theme === "system" ? <Check className="w-5 h-5" /> : null
@@ -149,7 +149,7 @@ export default function ProfileDropdown({
               onPress={() => {
                 setTheme("light");
               }}
-              className="text-blue-500 md:hidden"
+              className="text-blue-500"
               startContent={<Sun className="w-5 h-5" />}
               endContent={
                 theme === "light" ? <Check className="w-5 h-5" /> : null
@@ -163,7 +163,7 @@ export default function ProfileDropdown({
               onPress={() => {
                 setTheme("dark");
               }}
-              className="text-blue-500 md:hidden"
+              className="text-blue-500"
               startContent={<Moon className="w-5 h-5" />}
               endContent={
                 theme === "dark" ? <Check className="w-5 h-5" /> : null
