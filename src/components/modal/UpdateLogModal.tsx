@@ -6,7 +6,7 @@ import {
   ZonedDateTime,
   parseAbsoluteToLocal,
 } from "@internationalized/date";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Modal,
   ModalContent,
@@ -42,6 +42,14 @@ export default function UpdateLogModal({
   const [date, setDate] = useState<ZonedDateTime>(() =>
     parseAbsoluteToLocal(log.created_at)
   );
+
+  useEffect(() => {
+    if (isOpen) {
+      setDrinkName(log.drink_name);
+      setAmountMl(log.amount_ml.toString());
+      setDate(parseAbsoluteToLocal(log.created_at));
+    }
+  }, [isOpen, log]);
 
   const handleUpdateLog = async () => {
     if (

@@ -8,7 +8,6 @@ import {
   TableRow,
   TableCell,
   Button,
-  ScrollShadow,
 } from "@heroui/react";
 import { Log } from "@/types/database";
 import DeleteLogModal from "@/components/modal/DeleteLogModal";
@@ -29,7 +28,7 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
         onOpenChange={setIsDeleteModalOpen}
         id={logId}
       />
-      {isUpdateModalOpen && log && (
+      {log && (
         <UpdateLogModal
           isOpen={isUpdateModalOpen}
           onOpenChange={setIsUpdateModalOpen}
@@ -44,9 +43,9 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
         isHeaderSticky
         maxTableHeight={500}
       >
-        <TableHeader className="table-header">
+        <TableHeader>
           <TableColumn align="start">วันที่ดื่ม</TableColumn>
-          <TableColumn align="start">ประเภทเครื่องดื่ม</TableColumn>
+          <TableColumn align="start">ชื่อเครื่องดื่ม</TableColumn>
           <TableColumn align="end">ปริมาณ (ml)</TableColumn>
           <TableColumn align="center">จัดการ</TableColumn>
         </TableHeader>
@@ -92,7 +91,7 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
                   {log?.drink_name}
                 </TableCell>
 
-                <TableCell className="text-right">{log?.amount_ml}</TableCell>
+                <TableCell className="text-center">{log?.amount_ml}</TableCell>
 
                 <TableCell className="flex justify-center gap-3">
                   <Button

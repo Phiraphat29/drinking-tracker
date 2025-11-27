@@ -34,6 +34,12 @@ export default function AddLogModal({
   const router = useRouter();
   const [date, setDate] = useState<ZonedDateTime>(now(getLocalTimeZone()));
 
+  const clearForm = () => {
+    setDrinkName("");
+    setAmountMl("");
+    setDate(now(getLocalTimeZone()));
+  };
+
   //* handle Upload log
   const handleUploadLog = async () => {
     if (!drinkName.trim() || !amountMl.trim() || parseInt(amountMl) <= 0) {
@@ -62,8 +68,7 @@ export default function AddLogModal({
     } else {
       onOpenChange(false);
       setDate(now(getLocalTimeZone()));
-      setDrinkName("");
-      setAmountMl("");
+      clearForm();
       router.refresh();
       addToast({
         title: "บันทึกข้อมูลสำเร็จ",
@@ -123,12 +128,23 @@ export default function AddLogModal({
           />
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onPress={() => onOpenChange(false)}>
-            ยกเลิก
-          </Button>
-          <Button color="primary" onPress={handleUploadLog}>
-            เพิ่ม
-          </Button>
+          <div className="flex justify-end w-full gap-2 relative">
+            <p className="absolute left-1 top-1/2 -translate-y-1/2 justify-start items-center text-xs text-gray-500">
+              *หมายเหตุ: การกดปุ่มยกเลิกจะล้างข้อมูลที่ป้อน
+            </p>
+            <Button
+              color="danger"
+              onPress={() => {
+                onOpenChange(false);
+                clearForm();
+              }}
+            >
+              ยกเลิก
+            </Button>
+            <Button color="primary" onPress={handleUploadLog}>
+              เพิ่ม
+            </Button>
+          </div>
         </ModalFooter>
       </ModalContent>
     </Modal>
