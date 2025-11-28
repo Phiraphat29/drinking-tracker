@@ -77,10 +77,10 @@ export default function DashboardClient({
         color="primary"
         variant="shadow"
         isIconOnly
-        className="fixed bottom-6 right-6 max-sm:bottom-10 max-sm:right-4 z-50 h-15 w-15 rounded-full flex items-center justify-center text-2xl"
+        className="fixed bottom-6 right-6 max-sm:bottom-10 max-sm:right-4 z-50 h-15 w-15 rounded-full rounded-tr-none -rotate-45 flex items-center justify-center text-2xl bg-linear-to-b from-blue-400 to-blue-600 dark:bg-linear-to-b dark:from-blue-500 dark:to-cyan-500"
         onPress={() => setIsAddLogModalOpen(true)}
       >
-        +
+        <span className="rotate-45">+</span>
       </Button>
 
       <main className="flex-1">

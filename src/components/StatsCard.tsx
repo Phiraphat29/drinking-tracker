@@ -3,7 +3,7 @@
 import { Log } from "@/types/database";
 import confetti from "canvas-confetti";
 import { Card, CardHeader, CardBody, Tabs, Tab, Progress } from "@heroui/react";
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -21,6 +21,7 @@ interface StatsCardProps {
 
 export default function StatsCard({ logs, dailyGoal }: StatsCardProps) {
   const now = new Date();
+  const [activeTab, setActiveTab] = useState("daily");
 
   const startOfDayMs = (d: Date) =>
     new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
@@ -154,11 +155,17 @@ export default function StatsCard({ logs, dailyGoal }: StatsCardProps) {
       <CardBody className="flex flex-col justify-center items-center overflow-hidden">
         <Tabs
           aria-label="Stats tabs"
-          color="primary"
+          color={activeTab === "daily" ? "primary" : "secondary"}
+          onSelectionChange={(e) => setActiveTab(e as string)}
           variant="solid"
           radius="full"
         >
-          <Tab key="daily" title="รายวัน (7 วันล่าสุด)" className="w-full px-4">
+          <Tab
+            key="daily"
+            title="รายวัน (7 วันล่าสุด)"
+            className="w-full px-4"
+            value="daily"
+          >
             <span className="text-sm text-gray-500">
               วันนี้คุณดื่มน้ำไปแล้ว {todayTotal} ml จาก {dailyGoal} ml
             </span>
@@ -223,6 +230,7 @@ export default function StatsCard({ logs, dailyGoal }: StatsCardProps) {
             key="weekly"
             title="รายสัปดาห์ (4 สัปดาห์ล่าสุด)"
             className="w-full px-4"
+            value="weekly"
           >
             <span className="text-sm text-gray-500">
               สัปดาห์นี้คุณดื่มน้ำไปแล้ว {weekly.thisWeekTotal} ml จาก{" "}

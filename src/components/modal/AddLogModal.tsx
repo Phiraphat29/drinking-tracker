@@ -126,25 +126,24 @@ export default function AddLogModal({
             min={0}
             onChange={(e) => setAmountMl(e.target.value)}
           />
+          <p className="text-xs text-gray-500">
+            *หมายเหตุ: การกดปุ่มยกเลิกจะล้างข้อมูลที่ป้อน
+            หากไม่ต้องการกรุณากดพื้นที่ว่างด้านนอก
+          </p>
         </ModalBody>
         <ModalFooter>
-          <div className="flex justify-end w-full gap-2 relative">
-            <p className="absolute left-1 top-1/2 -translate-y-1/2 justify-start items-center text-xs text-gray-500">
-              *หมายเหตุ: การกดปุ่มยกเลิกจะล้างข้อมูลที่ป้อน
-            </p>
-            <Button
-              color="danger"
-              onPress={() => {
-                onOpenChange(false);
-                clearForm();
-              }}
-            >
-              ยกเลิก
-            </Button>
-            <Button color="primary" onPress={handleUploadLog}>
-              เพิ่ม
-            </Button>
-          </div>
+          <Button
+            color="danger"
+            onPress={() => {
+              onOpenChange(false);
+              clearForm();
+            }}
+          >
+            ยกเลิก
+          </Button>
+          <Button color="primary" onPress={handleUploadLog}>
+            เพิ่ม
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

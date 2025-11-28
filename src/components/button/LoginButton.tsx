@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabaseClient";
 
 export default function LoginButton() {
   const handleSignInWithGoogle = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${location.origin}/auth/callback`,
@@ -22,10 +22,10 @@ export default function LoginButton() {
       color="primary"
       variant="shadow"
       size="md"
-      className="w-full h-10 bg-linear-to-r from-blue-600 to-cyan-600 text-white"
+      className="w-full h-10 bg-linear-to-r from-blue-600 via-cyan-600 to-teal-600 text-white"
     >
       ดำเนินการต่อด้วย
-      <i className="fa-brands fa-google ml-2"></i>
+      <i className="fa-brands fa-google"></i>
     </Button>
   );
 }

@@ -52,7 +52,7 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
         <TableBody>
           {logs.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={4} className="text-center">
+              <TableCell colSpan={4} className="text-center py-45">
                 ไม่พบข้อมูล
               </TableCell>
             </TableRow>

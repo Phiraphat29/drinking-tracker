@@ -23,7 +23,7 @@ export default function SignInClient() {
                 ยินดีต้อนรับ
               </h1>
               <p className="text-gray-600 dark:text-gray-300 text-lg">
-                ติดตามการดื่มน้ำของคุณ
+                เริ่มติดตามการดื่มน้ำของคุณ
               </p>
             </div>
             <div className="relative">
