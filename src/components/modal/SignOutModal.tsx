@@ -24,24 +24,14 @@ export default function SignOutModal({
   const router = useRouter();
 
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
+    await supabase.auth.signOut();
 
-    if (error) {
-      console.error("Error occurred while signing out:", error);
-      addToast({
-        title: "ออกจากระบบไม่สำเร็จ",
-        description: "กรุณาลองใหม่อีกครั้ง",
-        color: "danger",
-      });
-    } else {
-      console.log("Signed out successfully.");
-      onOpenChange(false);
-      router.refresh();
-      addToast({
-        title: "ออกจากระบบสำเร็จ",
-        color: "success",
-      });
-    }
+    onOpenChange(false);
+    router.refresh();
+    addToast({
+      title: "ออกจากระบบสำเร็จ",
+      color: "success",
+    });
   };
 
   return (
