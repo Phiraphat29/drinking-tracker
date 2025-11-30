@@ -27,7 +27,7 @@ export default function SignOutModal({
     await supabase.auth.signOut();
 
     onOpenChange(false);
-    router.refresh();
+    router.push("/sign-in");
     addToast({
       title: "ออกจากระบบสำเร็จ",
       color: "success",
