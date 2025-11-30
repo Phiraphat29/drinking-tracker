@@ -9,8 +9,8 @@ import {
   Button,
   addToast,
 } from "@heroui/react";
-import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import { signOutAction } from "@/app/auth/actions";
 
 interface SignOutModalProps {
   isOpen: boolean;
@@ -24,14 +24,18 @@ export default function SignOutModal({
   const router = useRouter();
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      addToast({
+        title: "ออกจากระบบสำเร็จ",
+        color: "success",
+      });
+      await signOutAction();
 
-    onOpenChange(false);
-    router.push("/sign-in");
-    addToast({
-      title: "ออกจากระบบสำเร็จ",
-      color: "success",
-    });
+      onOpenChange(false);
+    } catch (error) {
+      console.error("Logout error:", error);
+      router.push("/sign-in");
+    }
   };
 
   return (

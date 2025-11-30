@@ -10,7 +10,6 @@ import {
 } from "@heroui/react";
 import { User } from "@supabase/supabase-js";
 import { Profile } from "@/types/database";
-import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
