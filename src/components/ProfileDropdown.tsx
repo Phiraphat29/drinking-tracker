@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import SettingModal from "@/components/modal/SettingModal";
 import { Check, MonitorCog, Moon, Sun } from "lucide-react";
+import SignOutModal from "./modal/SignOutModal";
 
 type ProfileDropdownProps = {
   user: User;
@@ -37,6 +38,7 @@ export default function ProfileDropdown({
   const [isNotificationsEnabled, setIsNotificationsEnabled] =
     useState<boolean>(false);
   const [isSettingOpen, setIsSettingOpen] = useState(false);
+  const [isSignOutOpen, setIsSignOutOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -52,11 +54,6 @@ export default function ProfileDropdown({
       }
     }
   }, []);
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.push("/sign-in");
-  };
 
   const handleToggleNotifications = async () => {
     if (typeof window === "undefined" || !("Notification" in window)) {
@@ -106,6 +103,14 @@ export default function ProfileDropdown({
 
   return (
     <div className="flex items-center gap-5">
+      <SettingModal
+        isOpen={isSettingOpen}
+        onOpenChange={setIsSettingOpen}
+        userId={user.id}
+        profile={profile}
+        mode="full"
+      />
+      <SignOutModal isOpen={isSignOutOpen} onOpenChange={setIsSignOutOpen} />
       <Dropdown placement="bottom-end" backdrop="blur">
         <DropdownTrigger>
           <div className="flex items-center gap-3 cursor-pointer hover:bg-zinc-300 dark:hover:bg-gray-700 pe-2 px-1 ps-5 rounded-xl transition-background ease-in-out duration-300">
@@ -199,7 +204,7 @@ export default function ProfileDropdown({
           <DropdownSection title="ออกจากระบบ">
             <DropdownItem
               key="sign-out"
-              onPress={handleSignOut}
+              onPress={() => setIsSignOutOpen(true)}
               className="text-danger"
               color="danger"
             >
@@ -208,13 +213,6 @@ export default function ProfileDropdown({
           </DropdownSection>
         </DropdownMenu>
       </Dropdown>
-      <SettingModal
-        isOpen={isSettingOpen}
-        onOpenChange={setIsSettingOpen}
-        userId={user.id}
-        profile={profile}
-        mode="full"
-      />
     </div>
   );
 }

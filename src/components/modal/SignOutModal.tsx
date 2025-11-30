@@ -1,0 +1,75 @@
+"use client";
+
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  addToast,
+} from "@heroui/react";
+import { supabase } from "@/lib/supabaseClient";
+import { useRouter } from "next/navigation";
+
+interface SignOutModalProps {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export default function SignOutModal({
+  isOpen,
+  onOpenChange,
+}: SignOutModalProps) {
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error("Error occurred while signing out:", error);
+      addToast({
+        title: "ออกจากระบบไม่สำเร็จ",
+        description: "กรุณาลองใหม่อีกครั้ง",
+        color: "danger",
+      });
+    } else {
+      console.log("Signed out successfully.");
+      onOpenChange(false);
+      router.refresh();
+      addToast({
+        title: "ออกจากระบบสำเร็จ",
+        color: "success",
+      });
+    }
+  };
+
+  return (
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      placement="top-center"
+      backdrop="blur"
+    >
+      <ModalContent>
+        <ModalHeader>ยืนยันการออกจากระบบ</ModalHeader>
+        <ModalBody>
+          <p>ต้องการออกจากระบบใช่หรือไม่?</p>
+          <p className="text-sm text-gray-500">กรุณายืนยันการออกจากระบบ</p>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            color="default"
+            variant="light"
+            onPress={() => onOpenChange(false)}
+          >
+            ยกเลิก
+          </Button>
+          <Button color="danger" onPress={handleSignOut}>
+            ออกจากระบบ
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+}
