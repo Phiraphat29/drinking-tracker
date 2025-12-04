@@ -9,6 +9,9 @@ import AddLogModal from "@/components/modal/AddLogModal";
 import LogTable from "@/components/LogTable";
 import Footer from "@/components/Footer";
 import StatsCard from "@/components/StatsCard";
+import { getLocalTimeZone, CalendarDate } from "@internationalized/date";
+import type { RangeValue } from "@react-types/shared";
+import type { DateValue } from "@react-types/datepicker";
 
 export default function DashboardClient({
   user,
@@ -17,6 +20,10 @@ export default function DashboardClient({
 }: DashboardClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddLogModalOpen, setIsAddLogModalOpen] = useState(false);
+
+  const [dateRange, setDateRange] = useState<RangeValue<DateValue> | null>(
+    null
+  );
 
   //* Show toast after sign-in success
   useEffect(() => {
@@ -55,6 +62,24 @@ export default function DashboardClient({
     return () => clearInterval(interval);
   }, [logs]);
 
+  // สร้างตัวแปรสำหรับ Logs ที่ผ่านการกรองแล้ว
+  const filteredLogs = logs.filter((log) => {
+    if (!log) return false;
+    if (!dateRange) return true;
+
+    const logDate = new Date(log.created_at);
+    const tz = getLocalTimeZone();
+
+    // แปลง DateValue เป็น JS Date
+    // start: เวลา 00:00:00 ของวันที่เริ่ม
+    const startDate = (dateRange.start as CalendarDate).toDate(tz);
+    // end: เวลา 00:00:00 ของวันที่สิ้นสุด -> เราต้องปรับให้เป็น 23:59:59 เพื่อครอบคลุมทั้งวัน
+    const endDate = (dateRange.end as CalendarDate).toDate(tz);
+    endDate.setHours(23, 59, 59, 999);
+
+    return logDate >= startDate && logDate <= endDate;
+  });
+
   return (
     <div className="min-h-dvh flex flex-col">
       <NavBar user={user} profile={profile} />
@@ -90,8 +115,13 @@ export default function DashboardClient({
             dailyGoal={profile?.daily_goal_ml || 0}
           />
         </div>
+
         <div className="flex flex-col gap-2 mx-auto max-w-4xl px-4">
-          <LogTable logs={logs} />
+          <LogTable
+            logs={filteredLogs}
+            dateRange={dateRange}
+            onDateRangeChange={setDateRange}
+          />
         </div>
       </main>
 

@@ -13,13 +13,28 @@ import { Log } from "@/types/database";
 import DeleteLogModal from "@/components/modal/DeleteLogModal";
 import UpdateLogModal from "@/components/modal/UpdateLogModal";
 import { useState } from "react";
+import type { RangeValue } from "@react-types/shared";
+import type { DateValue } from "@react-types/datepicker";
+import DateFilterHeader from "./DateFilterHeader";
 
-export default function LogTable({ logs }: { logs: (Log | null)[] }) {
+interface LogTableProps {
+  logs: (Log | null)[];
+  dateRange: RangeValue<DateValue> | null;
+  onDateRangeChange: (value: RangeValue<DateValue> | null) => void;
+}
+
+export default function LogTable({
+  logs,
+  dateRange,
+  onDateRangeChange,
+}: LogTableProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [logId, setLogId] = useState<number>(0);
 
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [log, setLog] = useState<Log | null>(null);
+
+  const totalVolume = logs.reduce((acc, log) => acc + (log?.amount_ml || 0), 0);
 
   return (
     <>
@@ -36,6 +51,16 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
         />
       )}
 
+      {/* display total volume if user choose date range*/}
+      {dateRange && (
+        <div className="flex justify-end items-center gap-2 mb-2 px-2 z-10 animate-appearance-in">
+          <span className="text-sm">ยอดรวมในช่วงที่เลือก:</span>
+          <span className="text-lg font-bold text-blue-600 dark:text-blue-300">
+            {totalVolume.toLocaleString()} ml
+          </span>
+        </div>
+      )}
+
       <Table
         aria-label="Drinking log table"
         className="rounded-3xl text-xs sm:text-sm"
@@ -44,7 +69,9 @@ export default function LogTable({ logs }: { logs: (Log | null)[] }) {
         maxTableHeight={500}
       >
         <TableHeader>
-          <TableColumn align="start">วันที่ดื่ม</TableColumn>
+          <TableColumn align="start">
+            <DateFilterHeader value={dateRange} onChange={onDateRangeChange} />
+          </TableColumn>
           <TableColumn align="start">ชื่อเครื่องดื่ม</TableColumn>
           <TableColumn align="end">ปริมาณ (ml)</TableColumn>
           <TableColumn align="center">จัดการ</TableColumn>
