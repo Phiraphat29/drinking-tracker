@@ -15,11 +15,13 @@ import { useState } from "react";
 interface DateFilterHeaderProps {
   value: RangeValue<DateValue> | null;
   onChange: (value: RangeValue<DateValue> | null) => void;
+  totalVolume: number;
 }
 
 export default function DateFilterHeader({
   value,
   onChange,
+  totalVolume,
 }: DateFilterHeaderProps) {
   const tz = getLocalTimeZone();
   const today = now(tz);
@@ -30,22 +32,22 @@ export default function DateFilterHeader({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Popover placement="bottom-end" isOpen={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger onPress={() => setIsOpen(true)}>
-        <div
-          className={`
-          flex items-center gap-2 cursor-pointer transition-colors duration-300 select-none
-          ${
+    <Popover placement="top" isOpen={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger>
+        <Button
+          variant="solid"
+          color="primary"
+          onPress={() => setIsOpen(true)}
+          className={`mb-2 w-full h-auto py-2 ${
             value
-              ? "text-blue-600 font-bold"
-              : "hover:text-gray-900 dark:hover:text-gray-600 "
-          }
-        `}
+              ? ""
+              : "bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white"
+          }`}
         >
-          <span className="hidden sm:block">
-            {/* dd-mm-yyyy - dd-mm-yyyy format full thai month name */}
-            {value
-              ? `${value.start.toDate(tz).toLocaleDateString("th-TH", {
+          {value ? (
+            <div className="flex flex-col items-center gap-1">
+              <span className="hidden sm:block text-sm font-bold">
+                {`${value.start.toDate(tz).toLocaleDateString("th-TH", {
                   month: "long",
                   day: "numeric",
                   year: "numeric",
@@ -53,20 +55,24 @@ export default function DateFilterHeader({
                   month: "long",
                   day: "numeric",
                   year: "numeric",
-                })}`
-              : "วันที่ดื่ม"}
-          </span>
-          <span className="hidden max-sm:block">
-            {value
-              ? `${value.start
+                })}`}
+              </span>
+              <span className="hidden max-sm:block text-xs font-bold">
+                {`${value.start
                   .toDate(tz)
                   .toLocaleDateString("th-TH")} - ${value.end
                   .toDate(tz)
-                  .toLocaleDateString("th-TH")}`
-              : "วันที่ดื่ม"}
-          </span>
-          <i className="fa-solid fa-filter"></i>
-        </div>
+                  .toLocaleDateString("th-TH")}`}
+              </span>
+
+              <span className="text-sm font-normal opacity-90 max-sm:text-xs">
+                ปริมาณรวม: {totalVolume.toLocaleString()} ml
+              </span>
+            </div>
+          ) : (
+            "กรองวันที่ดื่ม"
+          )}
+        </Button>
       </PopoverTrigger>
       <PopoverContent>
         <div className="p-2">
@@ -74,7 +80,7 @@ export default function DateFilterHeader({
             aria-label="Date range filter"
             value={value || undefined}
             onChange={onChange}
-            visibleMonths={window.innerWidth < 640 ? 1 : 2}
+            visibleMonths={1}
             isDateUnavailable={unavailableDates}
           />
           {value && (

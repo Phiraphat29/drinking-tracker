@@ -9,6 +9,7 @@ import AddLogModal from "@/components/modal/AddLogModal";
 import LogTable from "@/components/LogTable";
 import Footer from "@/components/Footer";
 import StatsCard from "@/components/StatsCard";
+import DateFilterHeader from "@/components/DateFilterHeader";
 import { getLocalTimeZone, CalendarDate } from "@internationalized/date";
 import type { RangeValue } from "@react-types/shared";
 import type { DateValue } from "@react-types/datepicker";
@@ -80,6 +81,11 @@ export default function DashboardClient({
     return logDate >= startDate && logDate <= endDate;
   });
 
+  const totalVolume = filteredLogs.reduce(
+    (acc, log) => acc + (log?.amount_ml || 0),
+    0
+  );
+
   return (
     <div className="min-h-dvh flex flex-col">
       <NavBar user={user} profile={profile} />
@@ -117,11 +123,14 @@ export default function DashboardClient({
         </div>
 
         <div className="flex flex-col gap-2 mx-auto max-w-4xl px-4">
-          <LogTable
-            logs={filteredLogs}
-            dateRange={dateRange}
-            onDateRangeChange={setDateRange}
-          />
+          <div className="flex justify-end">
+            <DateFilterHeader
+              value={dateRange}
+              onChange={setDateRange}
+              totalVolume={totalVolume}
+            />
+          </div>
+          <LogTable logs={filteredLogs} dateRange={dateRange} />
         </div>
       </main>
 
