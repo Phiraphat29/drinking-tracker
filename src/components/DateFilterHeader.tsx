@@ -10,7 +10,7 @@ import {
   Button,
 } from "@heroui/react";
 import { getLocalTimeZone, now } from "@internationalized/date";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface DateFilterHeaderProps {
   value: RangeValue<DateValue> | null;
@@ -30,6 +30,12 @@ export default function DateFilterHeader({
   };
 
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (value) {
+      setIsOpen(false);
+    }
+  }, [value]);
 
   return (
     <Popover
