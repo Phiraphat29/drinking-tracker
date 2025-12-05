@@ -19,6 +19,7 @@
     * บันทึกประวัติการดื่ม (ปริมาณ, เวลา)
     * ระบบตารางข้อมูลแบบ **Virtualization** รองรับข้อมูลจำนวนมากได้ลื่นไหล
     * แก้ไข (Edit) และ ลบ (Delete) รายการบันทึกได้
+    * กรองวันที่(Filter Date) เพื่อเช็คปริมาณการดื่มน้ำรวมในแต่ละวัน
 * **⚙️ Personalization:**
     * ตั้งค่าเป้าหมายการดื่มน้ำรายวัน (Daily Goal)
     * เปลี่ยนรูปโปรไฟล์ (เชื่อมต่อกับ Supabase Storage)
@@ -46,15 +47,14 @@ https://drinking-tracker.vercel.app/
 
 ## 📱 Image Preview: Phone
 <div align='center'>
-<img width="300"  alt="image" src="https://github.com/user-attachments/assets/d846796e-85ac-471a-8437-0900752edcbb" />
-<img width="300"  alt="image" src="https://github.com/user-attachments/assets/db564b58-b188-4849-846c-3a421142c950" />
+<img width="300"  alt="image" src="https://github.com/user-attachments/assets/0db893ac-c8df-4bdd-a96c-0f1cc9c170cc" />
+<img width="300"  alt="image" src="https://github.com/user-attachments/assets/2ea7dde4-3092-4e27-9bc0-219b57142ebd" />
 </div>
-
 
 ## 🖥️ Image Preview: PC
 <div align='center'>
-<img width="600" alt="image" src="https://github.com/user-attachments/assets/0b311e19-cdd2-4ed7-88e4-b73eea2817ae" /> 
-<img width="600" alt="image" src="https://github.com/user-attachments/assets/9ee5b2a9-f558-4184-b6f1-b74d692a0f35" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/7b60e8bf-422f-47c5-b04e-622e776342ff" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/0aafc7d7-da57-47f7-9c01-ec6daaecea43" />
 </div>
 
 
