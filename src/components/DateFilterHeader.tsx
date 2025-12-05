@@ -32,7 +32,12 @@ export default function DateFilterHeader({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Popover placement="top" isOpen={isOpen} onOpenChange={setIsOpen}>
+    <Popover
+      placement="top"
+      backdrop="blur"
+      isOpen={isOpen}
+      onOpenChange={setIsOpen}
+    >
       <PopoverTrigger>
         <Button
           variant="solid"
